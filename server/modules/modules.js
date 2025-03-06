@@ -62,5 +62,30 @@ const Word = sequelize.define('word', {
 })
 
 
+User.hasOne(Statistics)
+Statistics.belongsTo(User)
+
+User.hasMany(Section)
+Section.belongsTo(User)
+
+Section.hasMany(Task)
+Task.belongsTo(Section)
+
+Task.hasMany(Test)
+Test.belongsTo(Task)
+
+User.hasOne(Library)
+Library.belongsTo(User)
+
+Library.hasMany(Dictionary)
+Dictionary.belongsTo(Library)
+
+Dictionary.hasMany(Word)
+Word.belongsTo(Dictionary)
+
+
+
+
+
 
 
