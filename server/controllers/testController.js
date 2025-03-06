@@ -7,6 +7,10 @@ class TestController {
         
     }
 
+    async getOne(req, res) {
+        
+    }
+
 }
 
 module.exports = new TestController()
