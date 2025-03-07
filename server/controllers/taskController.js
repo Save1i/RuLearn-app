@@ -7,6 +7,10 @@ class TaskController {
         
     }
 
+    async getOne(req, res) {
+        
+    }
+
 }
 
 module.exports = new TaskController()
