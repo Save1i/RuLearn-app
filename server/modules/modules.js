@@ -32,6 +32,7 @@ const Test = sequelize.define('test', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     audio_q: {type: DataTypes.STRING, allowNull: true},
+    img: {type: DataTypes.STRING, allowNull: false},
     text_q: {type: DataTypes.STRING, defaultValue: ""},
     options: {type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false},
     correct_answer: {type: DataTypes.STRING, allowNull: false},
