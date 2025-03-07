@@ -31,7 +31,7 @@ const Task = sequelize.define('task', {
 const Test = sequelize.define('test', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    audio_q: {type: DataTypes.STRING, allowNull: true},
+    audio_q: {type: DataTypes.STRING, defaultValue: ""},
     img: {type: DataTypes.STRING, allowNull: false},
     text_q: {type: DataTypes.STRING, defaultValue: ""},
     options: {type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false},
