@@ -24,8 +24,6 @@ const Task = sequelize.define('task', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     type: {type: DataTypes.STRING, allowNull: false},
     duration: {type: DataTypes.STRING, allowNull: false},
-    completed: {type: DataTypes.BOOLEAN, defaultValue: false},
-    score: {type: DataTypes.INTEGER, defaultValue: 0},
 })
 
 const Test = sequelize.define('test', {
@@ -36,7 +34,6 @@ const Test = sequelize.define('test', {
     text_q: {type: DataTypes.STRING, defaultValue: ""},
     options: {type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false},
     correct_answer: {type: DataTypes.STRING, allowNull: false},
-    completed: {type: DataTypes.BOOLEAN, defaultValue: false},
 })
 
 
