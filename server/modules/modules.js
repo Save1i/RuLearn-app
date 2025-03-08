@@ -26,6 +26,13 @@ const Task = sequelize.define('task', {
     duration: {type: DataTypes.STRING, allowNull: false},
 })
 
+const Task_progress  = sequelize.define('task_progress', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, allowNull: false},
+    status: {type: DataTypes.STRING, allowNull: false, defaultValue: "Новое слово"},
+    learned : {type: DataTypes.BOOLEAN, defaultValue: false},
+})
+
 const Test = sequelize.define('test', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, allowNull: false},
@@ -34,6 +41,13 @@ const Test = sequelize.define('test', {
     text_q: {type: DataTypes.STRING, defaultValue: ""},
     options: {type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false},
     correct_answer: {type: DataTypes.STRING, allowNull: false},
+})
+
+const Test_progress   = sequelize.define('test_progress', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, allowNull: false},
+    status: {type: DataTypes.STRING, allowNull: false, defaultValue: "Новое слово"},
+    completed: {type: DataTypes.BOOLEAN, defaultValue: false},
 })
 
 
@@ -65,6 +79,18 @@ Statistics.belongsTo(User)
 User.hasMany(Section)
 Section.belongsTo(User)
 
+User.hasMany(Task_progress)
+Task_progress.belongsTo(User)
+
+User.hasMany(Test_progress)
+Test_progress.belongsTo(User)
+
+Task.hasMany(Task_progress)
+Task_progress.belongsTo(Task)
+
+Test.hasMany(Test_progress)
+Test_progress.belongsTo(Test)
+
 Section.hasMany(Task)
 Task.belongsTo(Section)
 
@@ -84,6 +110,8 @@ Word.belongsTo(Dictionary)
 module.exports = {
     User,
     Statistics,
+    Task_progress,
+    Test_progress,
     Section,
     Task,
     Test,
