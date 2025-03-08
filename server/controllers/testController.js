@@ -22,12 +22,20 @@ class TestController {
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
-        
-   
     }
 
     async getAll(req, res) {
-        
+        const {taskId} = req.query;
+        let test;
+
+        if(taskId) {
+            test = await Test.findAll({where:{taskId}})
+        }
+        if (!taskId){
+            test = await Test.findAll()
+        }
+
+        return res.json(test)
     }
 
     async getOne(req, res) {
