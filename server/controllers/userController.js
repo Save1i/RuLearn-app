@@ -1,8 +1,12 @@
+const {User} =require('../modules/modules')
 const ApiError = require("../error/apiError")
 
 class UserController {
     async registration(req, res) {
+        const {email, password} = req.body
         
+        const user = await User.create({email, password})
+        return res.json(user) 
     }
 
     async login(req, res) {
