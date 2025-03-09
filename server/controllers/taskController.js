@@ -10,7 +10,12 @@ class TaskController {
     }
 
     async getAll(req, res) {
+
+
+        const task = await Task.findAll()
         
+
+        return res.json(task)
     }
 
     async getOne(req, res) {
