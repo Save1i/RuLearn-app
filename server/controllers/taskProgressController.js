@@ -49,13 +49,16 @@ class TaskProgressController {
 
     async getAll(req, res, next) {
         try {
-            const { userId } = req.query;
+            let { userId, sectionId } = req.query;
+
+            sectionId = sectionId || 1
 
             if (!userId) {
                 return res.status(400).json({ error: "userId is required" });
             }
 
             const tasks = await Task.findAll({
+                where:{sectionId},
                 attributes: ['id', 'name'],
                 include: [
                     {
