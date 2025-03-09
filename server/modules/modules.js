@@ -75,8 +75,8 @@ const Word = sequelize.define('word', {
 User.hasOne(Statistics)
 Statistics.belongsTo(User)
 
-User.hasMany(Section)
-Section.belongsTo(User)
+// User.hasMany(Section)
+// Section.belongsTo(User)
 
 User.hasMany(Task_progress)
 Task_progress.belongsTo(User)
