@@ -39,13 +39,82 @@ class TestProgressController {
         }
     }    
 
-    async getAll(req, res) {
-    
-    }
+async getAll(req, res, next) {
+    try {
+        const { userId, taskId } = req.query;
 
-    async getOne(req, res) {
-        
+        if (!userId || !taskId) {
+            return res.status(400).json({ error: "userId is required" });
+        }
+
+        const tests = await Test.findAll({
+            where: {taskId},
+            attributes: ['id', 'name'],
+            include: [
+                {
+                    model: Test_progress,
+                    as: 'progress',
+                    attributes: ['status'],
+                    where: { userId },
+                    required: false,
+                    separate: true,
+                    order: [['createdAt', 'DESC']], 
+                    limit: 1
+                }
+            ]
+        });
+
+        const result = tests.map(test => ({
+            test_id: test.id,
+            test_name: test.name,
+            progress_status: test.progress && test.progress.length > 0 ? test.progress[0].status : 'not_started'
+        }));
+
+        return res.json(result);
+    } catch (error) {
+        console.error("Error occurred in getAll method:", error);  // Логирование ошибки для отладки
+        next(error);  // Передаем ошибку дальше
     }
+}
+
+
+async getOne(req, res, next) {
+    try {
+        const { id: testId } = req.params; // testId теперь берется из params
+        const { userId } = req.query; // userId передается как query-параметр
+
+        if (!userId) {
+            return res.status(400).json({ error: "userId is required" });
+        }
+
+        const test = await Test.findOne({
+            where: { id: testId },
+            include: [
+                {
+                    model: Test_progress,
+                    as: 'progress',
+                    where: { userId },
+                    attributes: ['status', 'completed'],
+                    required: false
+                }
+            ]
+        });
+
+        if (!test) {
+            return res.status(404).json({ error: "Тест не найден" });
+        }
+
+        return res.json({
+            test,
+            progress_status: test.progress ? test.progress.status : 'not_started',
+            completed: test.progress ? test.progress.completed : false
+        });
+    } catch (error) {
+        console.error("Error in getOne:", error);
+        next(error);
+    }
+}
+
 
 }
 
