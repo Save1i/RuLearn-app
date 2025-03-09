@@ -4,6 +4,7 @@ const {DataTypes} = require('sequelize')
 const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     email: {type: DataTypes.STRING, unique: true},
+    password: {type: DataTypes.STRING},
     role: {type: DataTypes.STRING, defaultValue: 'USER'},
 })
 
@@ -28,7 +29,6 @@ const Task = sequelize.define('task', {
 
 const Task_progress  = sequelize.define('task_progress', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, allowNull: false},
     status: {type: DataTypes.STRING, allowNull: false, defaultValue: "Новое слово"},
     learned : {type: DataTypes.BOOLEAN, defaultValue: false},
 })
@@ -45,7 +45,6 @@ const Test = sequelize.define('test', {
 
 const Test_progress   = sequelize.define('test_progress', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, allowNull: false},
     status: {type: DataTypes.STRING, allowNull: false, defaultValue: "Новое слово"},
     completed: {type: DataTypes.BOOLEAN, defaultValue: false},
 })
@@ -85,10 +84,10 @@ Task_progress.belongsTo(User)
 User.hasMany(Test_progress)
 Test_progress.belongsTo(User)
 
-Task.hasMany(Task_progress)
-Task_progress.belongsTo(Task)
+Task.hasMany(Task_progress, { as: 'progress',  onDelete: 'CASCADE' });
+Task_progress.belongsTo(Task);
 
-Test.hasMany(Test_progress)
+Test.hasMany(Test_progress, { as: 'progress'})
 Test_progress.belongsTo(Test)
 
 Section.hasMany(Task)
