@@ -11,8 +11,8 @@ const User = sequelize.define('user', {
 const Statistics = sequelize.define('statistics', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     daily_streak: {type: DataTypes.INTEGER, defaultValue: 0},
-    daily_streak_max: {type: DataTypes.INTEGER, allowNull: false},
-    l_words: {type: DataTypes.INTEGER, allowNull: false},
+    daily_streak_max: {type: DataTypes.INTEGER, defaultValue: 0},
+    l_words: {type: DataTypes.INTEGER, defaultValue: 0},
 })
 
 const Section = sequelize.define('section', {
@@ -43,7 +43,7 @@ const Test = sequelize.define('test', {
     correct_answer: {type: DataTypes.STRING, allowNull: false},
 })
 
-const Test_progress   = sequelize.define('test_progress', {
+const Test_progress = sequelize.define('test_progress', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     status: {type: DataTypes.STRING, allowNull: false, defaultValue: "Новое слово"},
     completed: {type: DataTypes.BOOLEAN, defaultValue: false},
