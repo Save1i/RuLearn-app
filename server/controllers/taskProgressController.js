@@ -59,7 +59,7 @@ class TaskProgressController {
 
             const tasks = await Task.findAll({
                 where:{sectionId},
-                attributes: ['id', 'name'],
+                attributes: ['id', 'name', 'type', 'duration'],
                 include: [
                     {
                         model: Task_progress,
@@ -76,6 +76,8 @@ class TaskProgressController {
             const result = tasks.map(task => ({
                 task_id: task.id,
                 task_name: task.name,
+                task_type: task.type,
+                task_duration: task.duration,
                 progress_status: task.progress && task.progress.length > 0 ? task.progress[0].status : 'not_started'
             }));
 
