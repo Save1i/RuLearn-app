@@ -5,24 +5,24 @@ import { useContext } from "react";
 import { Context } from "../main";
 
 export const AppRouter = () => {
-    const context = useContext(Context);
+  const context = useContext(Context);
 
-    if (!context) {
-        return <Navigate to={HOME_ROUTE} replace />;
-    }
+  if (!context) {
+    return <Navigate to={HOME_ROUTE} replace />;
+  }
 
-    console.log(context.user)
+  console.log(context.user);
 
-    return (
-        <Routes>
-            {context.user.isAuth &&
-                authRoutes.map(({ path, Component }) => (
-                    <Route key={path} path={path} element={<Component />} />
-                ))}
-            {publicRoutes.map(({ path, Component }) => (
-                <Route key={path} path={path} element={<Component />} />
-            ))}
-             <Route path="*" element={<Navigate to={HOME_ROUTE} replace />} />
-        </Routes>
-    );
+  return (
+    <Routes>
+      {context.user.isAuth &&
+        authRoutes.map(({ path, Component }) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
+      {publicRoutes.map(({ path, Component }) => (
+        <Route key={path} path={path} element={<Component />} />
+      ))}
+      <Route path="*" element={<Navigate to={HOME_ROUTE} replace />} />
+    </Routes>
+  );
 };
