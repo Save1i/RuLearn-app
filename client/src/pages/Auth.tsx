@@ -31,7 +31,7 @@ const Auth = observer(() => {
         data = await registration(email, password);
         console.log(data);
       }
-      user.setIsUser(data); //user or data
+      user.setIsUser(true); //user or data
       user.setIsAuth(true);
       navigate(HOME_ROUTE);
     } catch (error: unknown) {
