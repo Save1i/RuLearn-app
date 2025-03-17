@@ -21,13 +21,13 @@ const App = observer(() => {
 
   useEffect(() => {
     check()
-      .then(() => {
-        user.setIsUser(true);
+      .then((data) => {
+        user.setIsUser(data);
         user.setIsAuth(true);
       })
       .catch((error) => {
         console.error("Ошибка при проверке авторизации:", error.response?.data || error.message);
-        user.setIsUser(false);
+        user.setIsUser({});
         user.setIsAuth(false);
         localStorage.removeItem("token");
       })
