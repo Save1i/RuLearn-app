@@ -31,12 +31,14 @@ const Auth = observer(() => {
         data = await registration(email, password);
         console.log(data);
       }
-      user.setIsUser(true); //user or data
+      user.setIsUser(data);
       user.setIsAuth(true);
       navigate(HOME_ROUTE);
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        alert(error.message);
+      if (typeof error === "object" && error !== null && "response" in error) {
+        const serverError = error as { response: { data?: { message?: string } } };
+        console.error("Ошибка сервера:", serverError.response.data);
+        alert(serverError.response.data?.message || "Ошибка при авторизации");
       } else {
         alert("Произошла неизвестная ошибка");
       }
@@ -62,7 +64,7 @@ const Auth = observer(() => {
           />
         </div>
 
-        <button onClick={click}>{isLogin ? "Войти" : "Регистрация"}</button>
+        <button onClick={(e) => click(e)}>{isLogin ? "Войти" : "Регистрация"}</button>
       </form>
       {isLogin ? (
         <p className="">
