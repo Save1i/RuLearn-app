@@ -30,11 +30,8 @@ export default class HomeStore {
   private _sections: Array<Section>;
 
   constructor() {
-    this._tasks = [
-      { id: 1, name: "Привет!", type: "аудио", duration: "1 мин.", sectionId: 1 },
-      { id: 2, name: "Как дела?", type: "чтение", duration: "1 мин.", sectionId: 1 },
-      { id: 3, name: "Пока!", type: "аудио", duration: "2 мин.", sectionId: 2 },
-    ];
+    this._sections = [];
+    this._tasks = [];
     this._tests = [
       {
         id: 1,
@@ -67,23 +64,20 @@ export default class HomeStore {
         img: "https://img.freepik.com/free-vector/cute-lazy-cat-cartoon-vector-icon-illustration-animal-nature-icon-concept-isolated-premium-vector_138676-6706.jpg?t=st=1741853215~exp=1741856815~hmac=3ab4cd2579a3d4c681b160048a76d624e42f34afbc2a230c5d1e9cd6ac9b069c&w=900",
       },
     ];
-    this._sections = [
-      { id: 1, name: "Раздел 1" },
-      { id: 2, name: "Раздел 2" },
-    ];
+
     makeAutoObservable(this);
   }
 
-  setTask(task: Task) {
-    this._tasks.push(task);
+  setTask(task: Array<Task>) {
+    this._tasks = task;
   }
 
   setTest(test: Test) {
     this._tests.push(test);
   }
 
-  setSection(section: Section) {
-    this._sections.push(section);
+  setSection(section: Array<Section>) {
+    this._sections = section;
   }
 
   get isSections() {
