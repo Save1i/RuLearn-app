@@ -13,7 +13,10 @@ interface ContextProps {
   home: HomeStore;
 }
 
-export const Context = createContext<ContextProps | null>(null);
+export const Context = createContext<ContextProps>({
+  user: new UserStore(),
+  home: new HomeStore(),
+});
 
 root.render(
   <Context.Provider
