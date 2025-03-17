@@ -1,10 +1,11 @@
-const Router = require('express')
-const router = new Router()
-const testController = require('../controllers/testController')
-const checkRole = require("../middleware/chekRoleMiddleware")
+const Router = require("express");
+const router = new Router();
+const testController = require("../controllers/testController");
+const checkRole = require("../middleware/chekRoleMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post('/',checkRole("ADMIN"), testController.create)
-router.get('/', testController.getAll)
-router.get('/:id', testController.getOne)
+router.post("/", checkRole("ADMIN"), testController.create);
+router.get("/:taskId", testController.getAll);
+router.get("/:id", testController.getOne);
 
-module.exports = router
+module.exports = router;
