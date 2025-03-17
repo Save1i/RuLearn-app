@@ -1,31 +1,35 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Section from "./Section";
 import { Context } from "../main";
 import styles from "../styles/home.module.css";
+import LogInLogOut from "./LogInLogOut";
+import { fetchSections, fetchTasks } from "../http/homeAPI";
+import { observer } from "mobx-react-lite";
 
-const Home = () => {
-  const context = useContext(Context);
+const Home = observer(() => {
+  const { home } = useContext(Context);
 
-  if (!context) {
-    console.error("context не найден!");
-    return null;
-  }
-
-  const { home } = context;
+  useEffect(() => {
+    fetchSections().then((data) => home.setSection(data));
+    fetchTasks().then((data) => home.setTask(data));
+  }, []);
 
   return (
     <div className={styles.home}>
       <div className={styles.home__inner}>
+        <LogInLogOut />
         <div className={styles.sections__container}>
-          {home.isTasks.length > 0 ? (
-            home.isSections.map((section) => <Section key={section.id} section={section} />)
+          {home.isSections.length > 0 ? (
+            home.isSections.map((section) => (
+              <Section key={section.id} section={section} tasks={home.isTasks} />
+            ))
           ) : (
-            <p>Задач пока нет</p>
+            <p>Разделов пока нет</p>
           )}
         </div>
       </div>
     </div>
   );
-};
+});
 
 export default Home;
