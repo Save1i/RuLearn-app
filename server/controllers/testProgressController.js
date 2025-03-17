@@ -44,7 +44,7 @@ async getAll(req, res, next) {
         const { userId, taskId } = req.query;
 
         if (!userId || !taskId) {
-            return res.status(400).json({ error: "userId is required" });
+            return res.status(400).json({ error: "userId or taskId is required" });
         }
 
         const tests = await Test.findAll({
@@ -65,9 +65,9 @@ async getAll(req, res, next) {
         });
 
         const result = tests.map(test => ({
-            test_id: test.id,
-            test_name: test.name,
-            progress_status: test.progress && test.progress.length > 0 ? test.progress[0].status : 'not_started'
+            testId: test.id,
+            name: test.name,
+            status: test.progress && test.progress.length > 0 ? test.progress[0].status : 'not_started'
         }));
 
         return res.json(result);

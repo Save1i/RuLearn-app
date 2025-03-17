@@ -1,27 +1,21 @@
-const {Task} =require('../modules/modules')
-const ApiError = require('../error/apiError')
+const { Task } = require("../modules/modules");
+const ApiError = require("../error/apiError");
 
 class TaskController {
-    async create(req, res) {
-        const {name, type, duration, completed} = req.body
-        
-        const task = await Task.create({name, type, duration, completed})
-        return res.json(task) 
-    }
+  async create(req, res) {
+    const { name, type, duration, completed } = req.body;
 
-    async getAll(req, res) {
+    const task = await Task.create({ name, type, duration, completed });
+    return res.json(task);
+  }
 
+  async getAll(req, res) {
+    const task = await Task.findAll();
 
-        const task = await Task.findAll()
-        
+    return res.json(task);
+  }
 
-        return res.json(task)
-    }
-
-    async getOne(req, res) {
-        
-    }
-
+  async getOne(req, res) {}
 }
 
-module.exports = new TaskController()
+module.exports = new TaskController();
