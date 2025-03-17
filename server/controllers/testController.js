@@ -34,14 +34,19 @@ class TestController {
 
   async getAll(req, res) {
     const { taskId } = req.params;
+    let { limit, page } = req.query;
+
+    page = page || 1;
+    limit = limit || 1;
+    let offset = page * limit - limit;
     let test;
 
     if (taskId) {
-      test = await Test.findAll({ where: { taskId } });
+      test = await Test.findAndCountAll({ where: { taskId }, limit, offset });
     }
 
     if (!taskId) {
-      test = await Test.findAll();
+      return res.status(404).json({ error: "Тест не найден" });
     }
 
     return res.json(test);
