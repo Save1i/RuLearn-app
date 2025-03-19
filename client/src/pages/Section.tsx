@@ -1,12 +1,17 @@
 import { observer } from "mobx-react-lite";
 import Task from "./Task";
+// import { useContext, useEffect } from "react";
+// import { Context } from "../main";
+// import { fetchTaskProgress } from "../http/homeAPI";
+// import { getUserId } from "../http/getUserId";
 
-interface isTask {
+interface isTaskP {
   id: number;
   name: string;
   type: string;
   duration: string;
   sectionId: number;
+  learned: boolean;
 }
 
 interface SectionProps {
@@ -14,11 +19,11 @@ interface SectionProps {
     id: number;
     name: string;
   };
-  tasks: Array<isTask>;
+  tasksP: Array<isTaskP>;
 }
 
-const Section: React.FC<SectionProps> = observer(({ section, tasks }) => {
-  const sectionTasks = tasks.filter((task) => task.sectionId === section.id);
+const Section: React.FC<SectionProps> = observer(({ section, tasksP }) => {
+  const sectionTasks = tasksP.filter((taskP) => taskP.sectionId === section.id);
 
   return (
     <div className="section">
@@ -26,7 +31,7 @@ const Section: React.FC<SectionProps> = observer(({ section, tasks }) => {
         <h2 className="section__title">{section.name}</h2>
         <div className="tasks__container">
           {sectionTasks.length > 0 ? (
-            sectionTasks.map((task) => <Task key={task.id} task={task} />)
+            sectionTasks.map((task) => <Task key={task.id} taskP={task} />)
           ) : (
             <p>Задач пока нет</p>
           )}
