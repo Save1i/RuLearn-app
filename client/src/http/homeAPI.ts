@@ -20,3 +20,12 @@ export const fetchTests = async (taskId: unknown, page: number, limit: number) =
   });
   return data;
 };
+
+export const fetchTaskProgress = async (userId: number) => {
+  const { data } = await $authHost.get("api/task-progress/", {
+    params: {
+      userId,
+    },
+  });
+  return data;
+};
