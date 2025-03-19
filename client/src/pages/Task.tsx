@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "../styles/task.module.css";
 import { useNavigate } from "react-router-dom";
 import { TEST_ROUTE } from "../utils/consts";
