@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { fetchTests } from "../http/homeAPI";
 import { observer } from "mobx-react-lite";
 import AudioQuestion from "./AudiQuestion";
-import { checkAnswer } from "../http/checkAnswer";
 import Pages from "../components/Pages";
 import { Context } from "../main";
+import { getUserId } from "../http/getUserId";
 
 console.log(import.meta.env.VITE_API_URL);
 
@@ -13,25 +13,23 @@ const Test = observer(() => {
   const { taskId } = useParams();
   const { home } = useContext(Context);
 
-  const [serverAnswer, setServerAnswer] = useState(false);
+  const [answer, setAnswer] = useState("");
 
   useEffect(() => {
     fetchTests(taskId, home.isPage, 1).then((data) => {
       home.setTest(data.rows);
       home.setTotalCount(data.count);
-      setServerAnswer(false);
+      setAnswer("");
     });
   }, [home.isPage]);
 
-  const handleAnswer = async (
-    selectedOption: string,
-    correctAnswer: string,
-    userId: number,
-    testId: number
-  ) => {
-    const result = await checkAnswer(selectedOption, correctAnswer, userId, testId);
-    if (result) {
-      setServerAnswer(true);
+  const { id } = getUserId();
+
+  const result = (selectedOption: string, correctAnswer: string) => {
+    if (selectedOption === correctAnswer) {
+      setAnswer("Правильно!");
+    } else {
+      setAnswer("Ошибка");
     }
   };
 
@@ -55,7 +53,7 @@ const Test = observer(() => {
                   <button
                     key={index}
                     className="options__btn"
-                    onClick={() => handleAnswer(opt, el.correct_answer, 23, el.id)}
+                    onClick={() => result(opt, el.correct_answer)}
                   >
                     {opt}
                   </button>
@@ -63,9 +61,13 @@ const Test = observer(() => {
               </div>
             </div>
           </div>
+          {answer ? (
+            <Pages userId={id} taskId={taskId} answer={answer} correctAnswer={el.correct_answer} />
+          ) : (
+            false
+          )}
         </div>
       ))}
-      {serverAnswer ? <Pages /> : false}
     </div>
   );
 });
