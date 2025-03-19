@@ -10,7 +10,13 @@ export const fetchSections = async () => {
   return data;
 };
 
-export const fetchTest = async () => {
-  const { data } = await $authHost.get("api/test");
+export const fetchTests = async (taskId: unknown, page: number, limit: number) => {
+  const { data } = await $authHost.get("api/test/" + taskId, {
+    params: {
+      taskId,
+      page,
+      limit,
+    },
+  });
   return data;
 };
