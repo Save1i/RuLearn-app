@@ -3,15 +3,17 @@ import Section from "./Section";
 import { Context } from "../main";
 import styles from "../styles/home.module.css";
 import LogInLogOut from "./LogInLogOut";
-import { fetchSections, fetchTasks } from "../http/homeAPI";
+import { fetchSections, fetchTaskProgress } from "../http/homeAPI";
 import { observer } from "mobx-react-lite";
+import { getUserId } from "../http/getUserId";
 
 const Home = observer(() => {
   const { home } = useContext(Context);
+  const { id } = getUserId();
 
   useEffect(() => {
     fetchSections().then((data) => home.setSection(data));
-    fetchTasks().then((data) => home.setTask(data));
+    fetchTaskProgress(id).then((data) => home.setTaskProgress(data));
   }, []);
 
   return (
@@ -21,7 +23,7 @@ const Home = observer(() => {
         <div className={styles.sections__container}>
           {home.isSections.length > 0 ? (
             home.isSections.map((section) => (
-              <Section key={section.id} section={section} tasks={home.isTasks} />
+              <Section key={section.id} section={section} tasksP={home.isTaskProgress} />
             ))
           ) : (
             <p>Разделов пока нет</p>
