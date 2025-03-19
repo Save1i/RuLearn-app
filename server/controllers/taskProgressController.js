@@ -4,7 +4,7 @@ const ApiError = require("../error/apiError");
 class TaskProgressController {
   async update(req, res, next) {
     try {
-      const { userId, taskId } = req.query;
+      const { userId, taskId } = req.body;
 
       if (!userId || !taskId) {
         return res.status(400).json({ error: "userId и taskId обязательны" });
@@ -39,22 +39,19 @@ class TaskProgressController {
 
   async getAll(req, res, next) {
     try {
-      let { userId, sectionId } = req.query;
-
-      sectionId = sectionId || 1;
+      let { userId } = req.query;
 
       if (!userId) {
         return res.status(400).json({ error: "userId is required" });
       }
 
       const tasks = await Task.findAll({
-        where: { sectionId },
-        attributes: ["id", "name", "type", "duration"],
+        attributes: ["id", "name", "type", "duration", "sectionId"],
         include: [
           {
             model: Task_progress,
             as: "progress",
-            attributes: ["status"],
+            attributes: ["learned"],
             where: { userId },
             required: false,
             order: [["createdAt", "DESC"]],
@@ -64,12 +61,12 @@ class TaskProgressController {
       });
 
       const result = tasks.map((task) => ({
-        task_id: task.id,
-        task_name: task.name,
-        task_type: task.type,
-        task_duration: task.duration,
-        progress_status:
-          task.progress && task.progress.length > 0 ? task.progress[0].status : "not_started",
+        id: task.id,
+        name: task.name,
+        type: task.type,
+        duration: task.duration,
+        sectionId: task.sectionId,
+        learned: task.progress && task.progress.length > 0 ? task.progress[0].learned : false,
       }));
 
       return res.json(result);
