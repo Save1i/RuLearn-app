@@ -1,5 +1,14 @@
 import { makeAutoObservable } from "mobx";
 
+interface TaskProgress {
+  id: number;
+  name: string;
+  type: string;
+  duration: string;
+  sectionId: number;
+  learned: boolean;
+}
+
 interface Task {
   id: number;
   name: string;
@@ -31,6 +40,7 @@ export default class HomeStore {
   private _page: number;
   private _totalCount: number;
   private _limit: number;
+  private _taskProgress: Array<TaskProgress>;
 
   constructor() {
     this._sections = [];
@@ -39,6 +49,7 @@ export default class HomeStore {
     this._page = 1;
     this._totalCount = 0;
     this._limit = 1;
+    this._taskProgress = [];
 
     makeAutoObservable(this);
   }
@@ -67,6 +78,10 @@ export default class HomeStore {
     this._limit = limit;
   }
 
+  setTaskProgress(TaskProgress: Array<TaskProgress>) {
+    this._taskProgress = TaskProgress;
+  }
+
   get isSections() {
     return this._sections;
   }
@@ -89,5 +104,9 @@ export default class HomeStore {
 
   get isLimit() {
     return this._limit;
+  }
+
+  get isTaskProgress() {
+    return this._taskProgress;
   }
 }
