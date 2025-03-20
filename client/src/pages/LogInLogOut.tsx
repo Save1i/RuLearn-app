@@ -12,6 +12,7 @@ const LogInLogOut = observer(() => {
     user.setIsAuth(false);
     user.setIsUser({});
     localStorage.removeItem("token");
+    navigate(LOGIN_ROUTE);
   };
   console.log(user.isAuth);
   return (
