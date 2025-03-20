@@ -8,13 +8,13 @@ import { observer } from "mobx-react-lite";
 import { getUserId } from "../http/getUserId";
 
 const Home = observer(() => {
-  const { home } = useContext(Context);
+  const { home, user } = useContext(Context);
   const { id } = getUserId();
 
   useEffect(() => {
     fetchSections().then((data) => home.setSection(data));
     fetchTaskProgress(id).then((data) => home.setTaskProgress(data));
-  }, []);
+  }, [user.isAuth]);
 
   return (
     <div className={styles.home}>
