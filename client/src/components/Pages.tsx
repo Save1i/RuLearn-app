@@ -18,6 +18,11 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
 
   const navigate = useNavigate();
 
+  const completeTask = () => {
+    postTaskProgress(userId, Number(taskId), home);
+    navigate(HOME_ROUTE);
+  };
+
   // Проверяем, есть ли следующая страница
   const hasNextPage = home.isPage < pageCount;
 
@@ -31,24 +36,17 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
 
   console.log(home.isPage);
 
-  return hasNextPage ? (
+  return (
     <div>
       <p>{answer}</p>
-      <p>{correctAnswer}</p>
-      <button onClick={nextPage}>{home.isPage + 1}</button>
-    </div>
-  ) : (
-    <div>
-      <p>{answer}</p>
-      <p>{correctAnswer}</p>
-      <button
-        onClick={() => {
-          postTaskProgress(userId, Number(taskId), home);
-          navigate(HOME_ROUTE);
-        }}
-      >
-        {home.isPage + 1}
-      </button>
+      {answer === "Ошибка" && (
+        <div className="">
+          <p>Правильный ответ:</p>
+          <p>{correctAnswer}</p>
+        </div>
+      )}
+
+      <button onClick={hasNextPage ? nextPage : completeTask}>{home.isPage + 1}</button>
     </div>
   );
 });
