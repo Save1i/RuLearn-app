@@ -43,7 +43,7 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
       <p>{correctAnswer}</p>
       <button
         onClick={() => {
-          postTaskProgress(userId, Number(taskId));
+          postTaskProgress(userId, Number(taskId), home);
           navigate(HOME_ROUTE);
         }}
       >
