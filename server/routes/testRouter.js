@@ -5,7 +5,7 @@ const checkRole = require("../middleware/chekRoleMiddleware");
 const authMiddleware = require("../middleware/authMiddleware");
 
 router.post("/", checkRole("ADMIN"), testController.create); // add checkRole("Admin")
-router.get("/:taskId", testController.getAll);
-router.get("/:id", testController.getOne);
+router.get("/:taskId", authMiddleware, testController.getAll);
+router.get("/:id", authMiddleware, testController.getOne);
 
 module.exports = router;
