@@ -26,6 +26,7 @@ const Test = observer(() => {
   const { id } = getUserId();
 
   const result = (selectedOption: string, correctAnswer: string) => {
+    if (answer) return;
     if (selectedOption === correctAnswer) {
       setAnswer("Правильно!");
     } else {
