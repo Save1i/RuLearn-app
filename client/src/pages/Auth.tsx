@@ -1,38 +1,44 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
 import { login, registration } from "../http/userAPI";
-import { useContext, useState } from "react";
+import { useContext, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../main";
+import { fetchSections } from "../http/homeAPI";
 
 const Auth = observer(() => {
   const navigate = useNavigate();
   const context = useContext(Context);
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
 
   if (!context) {
     console.error("context не найден!");
     return null;
   }
 
-  const { user } = context;
+  const { user, home } = context;
 
   const click = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
+      if (!email.current || !password.current) return;
       let data;
       if (isLogin) {
-        data = await login(email, password);
+        data = await login(email.current.value, password.current.value);
         console.log(data);
       } else {
-        data = await registration(email, password);
+        data = await registration(email.current.value, password.current.value);
         console.log(data);
       }
       user.setIsUser(data);
       user.setIsAuth(true);
+
+      // fetchSections
+      fetchSections().then((data) => home.setSection(data));
+
       navigate(HOME_ROUTE);
     } catch (error: unknown) {
       if (typeof error === "object" && error !== null && "response" in error) {
@@ -52,16 +58,11 @@ const Auth = observer(() => {
         <div>
           <label htmlFor="email">Почта</label>
 
-          <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input id="email" type="email" ref={email} />
         </div>
         <div>
           <label htmlFor="password">Пароль</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <input id="password" type="password" ref={password} />
         </div>
 
         <button onClick={(e) => click(e)}>{isLogin ? "Войти" : "Регистрация"}</button>
