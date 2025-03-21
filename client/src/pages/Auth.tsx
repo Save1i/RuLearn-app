@@ -5,6 +5,8 @@ import { useContext, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../main";
 import { fetchSections } from "../http/homeAPI";
+import styles from "../styles/auth.module.css";
+import authImage from "../img/auth.png"; // Импорт изображения
 
 const Auth = observer(() => {
   const navigate = useNavigate();
@@ -52,30 +54,38 @@ const Auth = observer(() => {
   };
 
   return (
-    <div>
-      <h2>{isLogin ? "Авторизация" : "Регистрация"}</h2>
-      <form>
-        <div>
-          <label htmlFor="email">Почта</label>
+    <div className={styles.auth}>
+      <div className={styles.auth__inner}>
+        <h2 className={styles.auth__title}>{isLogin ? "Авторизация" : "Регистрация"}</h2>
+        <img src={authImage} className={styles.auth__img} alt="" />
+        <form className={styles.auth__form}>
+          <div className={styles.auth__inputGroup}>
+            <label htmlFor="email" className={styles.auth__label}>
+              Почта
+            </label>
+            <input id="email" type="email" ref={email} className={styles.auth__input} />
+          </div>
+          <div className={styles.auth__inputGroup}>
+            <label htmlFor="password" className={styles.auth__label}>
+              Пароль
+            </label>
+            <input id="password" type="password" ref={password} className={styles.auth__input} />
+          </div>
 
-          <input id="email" type="email" ref={email} />
-        </div>
-        <div>
-          <label htmlFor="password">Пароль</label>
-          <input id="password" type="password" ref={password} />
-        </div>
-
-        <button onClick={(e) => click(e)}>{isLogin ? "Войти" : "Регистрация"}</button>
-      </form>
-      {isLogin ? (
-        <p className="">
-          Нет аккаунта? <Link to={REGISTRATION_ROUTE}>Регистрация</Link>
-        </p>
-      ) : (
-        <p className="">
-          Есть аккаунт? <Link to={LOGIN_ROUTE}>Войти</Link>
-        </p>
-      )}
+          <button onClick={(e) => click(e)} className={styles.auth__button}>
+            {isLogin ? "Войти" : "Регистрация"}
+          </button>
+        </form>
+        {isLogin ? (
+          <p className={styles.auth__link}>
+            Нет аккаунта? <Link to={REGISTRATION_ROUTE}>Регистрация</Link>
+          </p>
+        ) : (
+          <p className={styles.auth__link}>
+            Есть аккаунт? <Link to={LOGIN_ROUTE}>Войти</Link>
+          </p>
+        )}
+      </div>
     </div>
   );
 });
