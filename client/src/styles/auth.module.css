@@ -1,0 +1,33 @@
+.auth {
+}
+
+.auth__inner {
+  padding: 20px 15px 0 15px;
+}
+.auth__title {
+  font-size: 28px;
+  font-weight: bold;
+}
+.auth__img {
+  display: block;
+  height: 200px;
+  width: 200px;
+  margin: 0 auto;
+}
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.auth__inputGroup {
+  width: 100%;
+}
+.auth__label {
+}
+.auth__input {
+  width: 100%;
+}
+.auth__button {
+}
+.auth__link {
+}
