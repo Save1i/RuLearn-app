@@ -6,6 +6,7 @@ import LogInLogOut from "./LogInLogOut";
 import { fetchSections, fetchTaskProgress } from "../http/homeAPI";
 import { observer } from "mobx-react-lite";
 import { getUserId } from "../http/getUserId";
+import NavBarBottom from "../components/NavBarBottom";
 
 const Home = observer(() => {
   const { home, user } = useContext(Context);
@@ -29,6 +30,7 @@ const Home = observer(() => {
             <p>Разделов пока нет</p>
           )}
         </div>
+        <NavBarBottom />
       </div>
     </div>
   );
