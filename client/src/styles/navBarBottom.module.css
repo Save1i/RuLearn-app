@@ -1,0 +1,40 @@
+.navbar {
+  position: fixed;
+  content: "";
+  bottom: 20px;
+  left: 15px;
+  right: 15px;
+  margin: 0 auto;
+  height: 66px;
+  max-width: 600px;
+  background-color: #fff;
+  box-shadow: 0 0 20px 0 rgba(137, 155, 181, 0.5);
+  padding: 18px 30px 18px 30px;
+  border-radius: 15px;
+}
+
+.navBar__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navBar__el_svg {
+  height: 30px;
+  width: 30px;
+  color: #899bb5;
+}
+
+.navBar__el_svg.bold {
+  stroke-width: 0.4;
+}
+
+.navBar__el_svg.bold_l {
+  stroke-width: 1.7;
+}
+
+.navBar__el_svg.full {
+  height: 30px;
+  width: 30px;
+  color: #899bb5;
+  scale: 1.2;
+}
