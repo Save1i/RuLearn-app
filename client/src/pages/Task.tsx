@@ -1,6 +1,8 @@
 import styles from "../styles/task.module.css";
 import { useNavigate } from "react-router-dom";
 import { TEST_ROUTE } from "../utils/consts";
+import { FaArrowRight } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa6";
 
 interface TaskProps {
   taskP: {
@@ -18,7 +20,7 @@ const Task: React.FC<TaskProps> = ({ taskP }) => {
   return (
     <div
       className={styles.task}
-      style={taskP.learned ? { background: "green" } : { background: "blue" }}
+      style={taskP.learned ? { background: "#bfdbfe" } : { background: "#DBEAFE" }}
       onClick={() => navigate(TEST_ROUTE + "/" + taskP.id)}
     >
       <div className={styles.task__up}>
@@ -26,7 +28,7 @@ const Task: React.FC<TaskProps> = ({ taskP }) => {
           <span className={styles.task__type}>{taskP.type}</span>
           <span className={styles.task__duration}>{taskP.duration}</span>
         </div>
-        <div className={styles.task__decore}></div>
+        <div className={styles.task__decore}>{taskP.learned ? <FaCheck /> : <FaArrowRight />}</div>
       </div>
       <p className={styles.task__title}>{taskP.name}</p>
     </div>
