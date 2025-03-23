@@ -6,5 +6,18 @@
   margin-right: 15px;
 }
 
+.sections {
+  margin-top: 20px;
+}
+
+.sections__title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .sections__container {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 8px 15px 15px 15px;
+  margin-top: 10px;
 }

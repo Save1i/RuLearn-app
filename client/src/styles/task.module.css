@@ -1,23 +1,43 @@
 .task {
-  margin-top: 15px;
+  margin-bottom: 15px;
   width: 100%;
-  background-color: #d5ebfe;
+  background-color: #dbeafe;
+  border-radius: 10px;
+  padding: 15px;
 }
 
 .task__up {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
 .task__info {
+  display: flex;
+  gap: 5px;
+  color: #fff;
 }
 
 .task__type {
+  font-weight: 700;
+  font-size: 12px;
+  padding: 2px 11px 2px 11px;
+  background-color: #0077b6;
+  border-radius: 5px;
 }
 
 .task__duration {
+  font-weight: 700;
+  font-size: 12px;
+  padding: 2px 11px 2px 11px;
+  background-color: #0077b6;
+  border-radius: 5px;
 }
 
 .task__decore {
 }
 
 .task__title {
+  font-weight: 700;
+  font-size: 16px;
 }

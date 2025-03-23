@@ -1,0 +1,17 @@
+.section {
+}
+.section__inner {
+}
+.section__title {
+  font-size: 18px;
+  font-weight: 700;
+}
+.tasks__container {
+  margin-top: 8px;
+}
+.tasks__empty {
+  background-color: #d5ebfe;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 12px;
+}
