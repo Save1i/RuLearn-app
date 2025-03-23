@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchTests } from "../http/homeAPI";
 import { observer } from "mobx-react-lite";
-import AudioQuestion from "./AudiQuestion";
+import AudioQuestion from "../components/AudiQuestion";
 import Pages from "../components/Pages";
 import { Context } from "../main";
 import { getUserId } from "../http/getUserId";
+import styles from "../styles/test.module.css";
 
 console.log(import.meta.env.VITE_API_URL);
 
@@ -35,32 +36,28 @@ const Test = observer(() => {
   };
 
   return (
-    <div>
+    <div className={styles.test}>
       {home.isTests.map((el) => (
-        <div key={el.id} className="test">
-          <div className="test__inner">
-            <div className="question">
-              <p className="question__title">{el.text_q}</p>
-              <div className="question__container">
-                <img width={100} height={125} src={import.meta.env.VITE_API_URL + el.img} alt="" />{" "}
-                {el.audio_q ? (
-                  <AudioQuestion audio_q={el.audio_q} />
-                ) : (
-                  <p className="question__tex">{el.text_q}</p>
-                )}
-              </div>
-              <div className="options">
-                {el.options.map((opt, index) => (
-                  <button
-                    key={index}
-                    className="options__btn"
-                    onClick={() => result(opt, el.correct_answer)}
-                  >
-                    {opt}
-                  </button>
-                ))}
-              </div>
-            </div>
+        <div key={el.id} className={styles.test__inner}>
+          <p className={styles.test__title}>{el.text_q}</p>
+          <div className={styles.test__container}>
+            <img width={100} height={125} src={import.meta.env.VITE_API_URL + el.img} alt="" />{" "}
+            {el.audio_q ? (
+              <AudioQuestion audio_q={el.audio_q} />
+            ) : (
+              <p className={styles.test__text}>{el.text_q}</p>
+            )}
+          </div>
+          <div className={styles.options}>
+            {el.options.map((opt, index) => (
+              <button
+                key={index}
+                className={styles.options__btn}
+                onClick={() => result(opt, el.correct_answer)}
+              >
+                {opt}
+              </button>
+            ))}
           </div>
           {answer ? (
             <Pages userId={id} taskId={taskId} answer={answer} correctAnswer={el.correct_answer} />
