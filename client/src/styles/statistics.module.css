@@ -1,0 +1,23 @@
+.stat {
+  height: 70px;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px 0 15px;
+  border-radius: 10px;
+}
+.stat__text {
+}
+.stat__title {
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+.stat__info {
+  font-size: 14px;
+  margin-top: 5px;
+}
+.stat__img {
+}

@@ -1,0 +1,12 @@
+.question__btn {
+  width: 100px;
+  height: 100px;
+  background: #d5ebfe;
+  border-radius: 10px;
+}
+
+.question__svg {
+  height: 55px;
+  width: 45px;
+  stroke-width: 1px;
+}
