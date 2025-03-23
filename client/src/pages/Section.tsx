@@ -1,9 +1,6 @@
 import { observer } from "mobx-react-lite";
 import Task from "./Task";
-// import { useContext, useEffect } from "react";
-// import { Context } from "../main";
-// import { fetchTaskProgress } from "../http/homeAPI";
-// import { getUserId } from "../http/getUserId";
+import styles from "../styles/sections.module.css";
 
 interface isTaskP {
   id: number;
@@ -26,14 +23,14 @@ const Section: React.FC<SectionProps> = observer(({ section, tasksP }) => {
   const sectionTasks = tasksP.filter((taskP) => taskP.sectionId === section.id);
 
   return (
-    <div className="section">
-      <div className="section__inner">
-        <h2 className="section__title">{section.name}</h2>
-        <div className="tasks__container">
+    <div className={styles.section}>
+      <div className={styles.section__inner}>
+        <h2 className={styles.section__title}>{section.name}</h2>
+        <div className={styles.tasks__container}>
           {sectionTasks.length > 0 ? (
             sectionTasks.map((task) => <Task key={task.id} taskP={task} />)
           ) : (
-            <p>Задач пока нет</p>
+            <p className={styles.tasks__empty}>Задач пока нет</p>
           )}
         </div>
       </div>
