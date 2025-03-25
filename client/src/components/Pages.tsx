@@ -23,6 +23,7 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
 
   const completeTask = () => {
     postTaskProgress(userId, Number(taskId), home);
+    home.setPage(1);
     navigate(HOME_ROUTE);
   };
 
