@@ -16,6 +16,7 @@ const Home = observer(() => {
 
   useEffect(() => {
     fetchSections().then((data) => home.setSection(data));
+    fetchSections().then((data) => home.setSection(data));
     fetchTaskProgress(id).then((data) => home.setTaskProgress(data));
   }, [user.isAuth]);
 
