@@ -5,6 +5,7 @@
 .test__header {
   display: flex;
   align-items: center;
+  padding-top: 5px;
   padding-left: 5px;
   padding-right: 50px;
   gap: 10px;
