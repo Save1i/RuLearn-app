@@ -3,8 +3,9 @@ import { authRoutes, publicRoutes } from "../routes";
 import { HOME_ROUTE } from "../utils/consts";
 import { useContext } from "react";
 import { Context } from "../main";
+import { observer } from "mobx-react-lite";
 
-export const AppRouter = () => {
+export const AppRouter = observer(() => {
   const context = useContext(Context);
 
   if (!context) {
@@ -25,4 +26,4 @@ export const AppRouter = () => {
       <Route path="*" element={<Navigate to={HOME_ROUTE} replace />} />
     </Routes>
   );
-};
+});
