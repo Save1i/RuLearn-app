@@ -4,7 +4,6 @@ import { login, registration } from "../http/userAPI";
 import { useContext, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../main";
-import { fetchSections } from "../http/homeAPI";
 import styles from "../styles/auth.module.css";
 import authImage from "../img/auth.png";
 
@@ -37,7 +36,7 @@ const Auth = observer(() => {
     return null;
   }
 
-  const { user, home } = context;
+  const { user } = context;
 
   const click = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -53,9 +52,6 @@ const Auth = observer(() => {
       }
       user.setIsUser(data);
       user.setIsAuth(true);
-
-      // fetchSections
-      fetchSections().then((data) => home.setSection(data));
 
       navigate(HOME_ROUTE);
     } catch (error: unknown) {
