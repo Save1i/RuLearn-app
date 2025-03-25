@@ -7,6 +7,7 @@ interface TaskProgress {
   duration: string;
   sectionId: number;
   learned: boolean;
+  taskId: number;
 }
 
 interface Task {
