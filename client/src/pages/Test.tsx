@@ -7,6 +7,8 @@ import Pages from "../components/Pages";
 import { Context } from "../main";
 import { getUserId } from "../http/getUserId";
 import styles from "../styles/test.module.css";
+import TestprogressNav from "../components/TestprogressNav";
+import CloseToHomeBtn from "../components/CloseToHomeBtn";
 
 console.log(import.meta.env.VITE_API_URL);
 
@@ -37,6 +39,11 @@ const Test = observer(() => {
 
   return (
     <div className={styles.test}>
+      <div className={styles.test__header}>
+        <CloseToHomeBtn />
+        <TestprogressNav />
+      </div>
+
       {home.isTests.map((el) => (
         <div key={el.id} className={styles.test__inner}>
           <p className={styles.test__title}>{el.text_q}</p>
