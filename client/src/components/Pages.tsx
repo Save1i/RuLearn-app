@@ -14,9 +14,10 @@ interface AnswersProps {
   correctAnswer: string;
   userId: number;
   taskId: string | undefined;
+  showTest: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId, taskId }) => {
+const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId, taskId, showTest }) => {
   const { home } = useContext(Context);
   const pageCount = Math.ceil(home.isTotalCount / home.isLimit);
 
@@ -31,8 +32,11 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
 
   const completeTask = () => {
     postTaskProgress(userId, Number(taskId), home);
-    home.setPage(1);
-    navigate(HOME_ROUTE);
+    showTest(false);
+    setTimeout(() => {
+      home.setPage(1);
+      navigate(HOME_ROUTE);
+    }, 200)
   };
 
   // Проверяем, есть ли следующая страница
