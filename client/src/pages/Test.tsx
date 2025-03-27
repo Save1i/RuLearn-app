@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchTests } from "../http/homeAPI";
 import { observer } from "mobx-react-lite";
@@ -9,6 +9,7 @@ import { getUserId } from "../http/getUserId";
 import styles from "../styles/test.module.css";
 import TestprogressNav from "../components/TestprogressNav";
 import CloseToHomeBtn from "../components/CloseToHomeBtn";
+import { CSSTransition } from 'react-transition-group';
 
 console.log(import.meta.env.VITE_API_URL);
 
@@ -18,8 +19,15 @@ const Test = observer(() => {
 
   const [answer, setAnswer] = useState("");
 
+  const nodeRef = useRef(null);
+  const [showTest, setShowTest] = useState(false)
+  
+
+
   useEffect(() => {
     fetchTests(taskId, home.isPage, 1).then((data) => {
+      setShowTest(true)
+
       home.setTest(data.rows);
       home.setTotalCount(data.count);
       setAnswer("");
@@ -38,9 +46,15 @@ const Test = observer(() => {
   };
 
   return (
-    <div className={styles.test}>
+    <CSSTransition nodeRef={nodeRef} in={showTest} timeout={200} classNames={{
+      enterActive: styles.testEnterActive,
+      enterDone: styles.testEnterDone,
+      exit: styles.testExit,
+      exitActive: styles.exitActive
+    }}>
+    <div ref={nodeRef} className={styles.test}>
       <div className={styles.test__header}>
-        <CloseToHomeBtn />
+        <CloseToHomeBtn showTest={setShowTest}/>
         <TestprogressNav />
       </div>
 
@@ -74,6 +88,7 @@ const Test = observer(() => {
         </div>
       ))}
     </div>
+    </CSSTransition>
   );
 });
 
