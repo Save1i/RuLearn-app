@@ -42,7 +42,11 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
 
   const nextPage = () => {
     if (hasNextPage) {
-      home.setPage(home.isPage + 1);
+      setShowPages(false)
+      setTimeout(() => {
+        home.setPage(home.isPage + 1);
+      }, 200)
+
     }
   };
 
