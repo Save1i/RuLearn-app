@@ -1,6 +1,22 @@
 .test {
   width: 100%;
   height: 100vh;
+  opacity: 0;
+}
+
+.testEnterActive {
+  opacity: 1;
+  transition: opacity 400ms;
+}
+.testEnterDone {
+  opacity: 1;
+}
+.testExit {
+  opacity: 1;
+}
+.exitActive {
+  opacity: 0;
+  transition: opacity 200ms;
 }
 .test__header {
   display: flex;
