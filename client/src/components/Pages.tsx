@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../main";
 import { postTaskProgress } from "../http/postTaskProgress";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { HOME_ROUTE } from "../utils/consts";
 import styles from "../styles/pages.module.css";
 import { IoIosCloseCircle } from "react-icons/io";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import { CSSTransition } from 'react-transition-group';
 
 interface AnswersProps {
   answer: string;
@@ -20,6 +21,13 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
   const pageCount = Math.ceil(home.isTotalCount / home.isLimit);
 
   const navigate = useNavigate();
+
+  const nodeRef = useRef(null);
+  const [showPages, setShowPages] = useState(false)
+
+  useEffect(() => {
+    setShowPages(true)
+  }, [answer])
 
   const completeTask = () => {
     postTaskProgress(userId, Number(taskId), home);
@@ -41,7 +49,13 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
   console.log(home.isPage);
 
   return (
-    <div className={styles.pages}>
+    <CSSTransition nodeRef={nodeRef} in={showPages} timeout={300} classNames={{
+      enterActive: styles.pagesEnterActive,
+      enterDone: styles.pagesEnterDone,
+      exit: styles.pagesExit,
+      exitActive: styles.pagesExitActive
+    }}>
+    <div ref={nodeRef} className={styles.pages}>
       <div className={styles.pages__header}>
         {answer === "Ошибка" ? (
           <>
@@ -66,6 +80,7 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
         {hasNextPage ? "ПРОДОЛЖИТЬ" : "ЗАВЕРШИТЬ"}
       </button>
     </div>
+    </CSSTransition>
   );
 });
 
