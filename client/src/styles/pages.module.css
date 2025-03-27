@@ -10,7 +10,31 @@
   margin: 0 auto;
   max-width: 600px;
   box-shadow: 0 0 20px 0 rgba(137, 155, 181, 0.5);
+
+
+  opacity: 0;
+  transform: translateY(150px);
 }
+
+.pagesEnterActive {
+opacity: 1;
+transition: all 300ms ;
+transform: translateY(0);
+}
+.pagesEnterDone {
+opacity: 1;
+transform: translateY(0);
+}
+.pagesExit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.pagesExitActive {
+  opacity: 0;
+  transform: translateY(150px);
+  transition: all 300ms ;
+}
+
 .pages__header {
   display: flex;
   gap: 5px;
