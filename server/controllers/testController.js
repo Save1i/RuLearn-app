@@ -16,7 +16,7 @@ class TestController {
       const { audio_q } = req.files;
       let audioFileName = null;
       if(audio_q) {
-        let audioFileName = uuid.v4() + ".mp3";
+        audioFileName = uuid.v4() + ".mp3";
         audio_q.mv(path.resolve(__dirname, "..", "static", audioFileName));  
       }
     
@@ -30,9 +30,6 @@ class TestController {
         taskId,
       });
 
-      if (audioFileName) {
-        test.audio_q = audioFileName;
-      }
 
       return res.json(test);
     } catch (e) {
