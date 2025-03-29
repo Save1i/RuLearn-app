@@ -4,18 +4,10 @@ import { observer } from "mobx-react-lite";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "./main";
 import { check } from "./http/userAPI";
-import { Spinner } from "react-bootstrap";
+
 
 const App = observer(() => {
-  const context = useContext(Context);
-
-  if (!context) {
-    console.error("context не найден!");
-    return null;
-  }
-
-  const { user } = context;
-
+  const {user} = useContext(Context);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,7 +26,13 @@ const App = observer(() => {
   }, []);
 
   if (loading) {
-    return <Spinner animation={"grow"} />;
+    return (
+    <div className="vh-100 vw-100 d-flex justify-content-center align-items-center">
+      <div className="spinner-grow" style={{width: "3rem", height: "3rem", color: "#0077b6"}} role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+  </div>
+    )
   }
 
   return (
