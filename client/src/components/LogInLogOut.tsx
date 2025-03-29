@@ -19,7 +19,13 @@ const LogInLogOut = observer(() => {
     <>
       {user.isAuth ? (
         <button
-          style={{ padding: "10px 20px 10px 20px", background: "#ff6f04" }}
+          style={{
+            padding: "10px 20px 10px 20px",
+            background: "#ff6f04",
+            borderRadius: "10px",
+            fontSize: "16px",
+            fontWeight: "600", 
+          }}
           onClick={() => logOut()}
         >
           Выйти
