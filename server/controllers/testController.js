@@ -14,9 +14,12 @@ class TestController {
       img.mv(path.resolve(__dirname, "..", "static", fileName));
 
       const { audio_q } = req.files;
-      let audioFileName = uuid.v4() + ".mp3";
-      audio_q.mv(path.resolve(__dirname, "..", "static", audioFileName));
-
+      let audioFileName = null;
+      if(audio_q) {
+        let audioFileName = uuid.v4() + ".mp3";
+        audio_q.mv(path.resolve(__dirname, "..", "static", audioFileName));  
+      }
+    
       const test = await Test.create({
         name,
         text_q,
@@ -26,6 +29,11 @@ class TestController {
         audio_q: audioFileName,
         taskId,
       });
+
+      if (audioFileName) {
+        test.audio_q = audioFileName;
+      }
+
       return res.json(test);
     } catch (e) {
       next(ApiError.badRequest(e.message));
