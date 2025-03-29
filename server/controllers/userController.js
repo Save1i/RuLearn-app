@@ -6,8 +6,7 @@ const {User, Task_progress, Test_progress, Statistics} = require('../modules/mod
 const generateJwt = (id, email, role) => {
     return jwt.sign(
         { id, email, role },
-        process.env.SECRET_KEY,
-        { expiresIn: "24h" }
+        process.env.SECRET_KEY
     )
 }
 
