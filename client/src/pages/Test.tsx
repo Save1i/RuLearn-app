@@ -26,12 +26,10 @@ const Test = observer(() => {
 
   useEffect(() => {
     fetchTests(taskId, home.isPage, 1).then((data) => {
-      setShowTest(true)
-
       home.setTest(data.rows);
       home.setTotalCount(data.count);
       setAnswer("");
-    });
+    }).finally(()=> setShowTest(true));
   }, [home.isPage]);
 
   const { id } = getUserId();
@@ -81,7 +79,13 @@ const Test = observer(() => {
             ))}
           </div>
           {answer ? (
-            <Pages userId={id} taskId={taskId} answer={answer} correctAnswer={el.correct_answer} />
+             <Pages 
+             userId={id} 
+             taskId={taskId} 
+             answer={answer} 
+             correctAnswer={el.correct_answer} 
+             showTest={setShowTest}
+             />
           ) : (
             false
           )}
