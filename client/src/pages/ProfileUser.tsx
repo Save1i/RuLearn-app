@@ -4,7 +4,17 @@ import NavBarBottom from "../components/NavBarBottom";
 const ProfileUser = () => {
   return (
     <div>
-      <LogInLogOut />
+        <div
+          style={{
+            height: "100vh",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <LogInLogOut />
+        </div>
       <NavBarBottom />
     </div>
   );
