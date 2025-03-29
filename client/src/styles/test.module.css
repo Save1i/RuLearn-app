@@ -72,3 +72,10 @@
   font-weight: 600;
   font-size: 12px;
 }
+
+.options__btn:active {
+  background-color: #d5ebfe;
+  border: 1px solid #0077b6;
+  transition: all .1s ease-in-out;
+}
+
