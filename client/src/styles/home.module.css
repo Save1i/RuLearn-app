@@ -1,4 +1,21 @@
 .home {
+  opacity: 0;
+}
+
+.homeEnterActive {
+  opacity: 1;
+  transition: all .2s;
+
+}
+.homeEnterDone {
+  opacity: 1;
+}
+.homeExit {
+opacity: 1;
+}
+.homeExitActive {
+opacity: 0;
+transition: all .2s;
 }
 
 .home__inner {
