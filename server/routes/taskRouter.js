@@ -2,7 +2,7 @@ const Router = require("express");
 const router = new Router();
 const taskController = require("../controllers/taskController");
 const checkRole = require("../middleware/chekRoleMiddleware");
-const authMiddleware = require("../middleware/authMiddleware");
+const authMiddleware = require("../middleware/AuthMiddleware");
 
 router.post("/", checkRole("ADMIN"), taskController.create);
 router.get("/", authMiddleware, taskController.getAll);

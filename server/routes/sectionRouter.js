@@ -2,7 +2,7 @@ const Router = require('express')
 const router = new Router()
 const sectionController = require('../controllers/sectionController')
 const checkRole = require("../middleware/chekRoleMiddleware")
-const authMiddleware = require("../middleware/authMiddleware");
+const authMiddleware = require("../middleware/AuthMiddleware");
 
 router.post('/',checkRole('ADMIN'), sectionController.create)
 router.get('/', authMiddleware, sectionController.getAll)
