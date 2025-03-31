@@ -6,4 +6,4 @@ export const TEST_ROUTE = "/test";
 export const PROFILE_ROUTE = "/profile";
 
 // export const SERVER_URL = "http://localhost:5000/";
-export const SERVER_URL = "http://rulearn.up.railway.app";
+export const SERVER_URL = "https://rulearn.up.railway.app/";
