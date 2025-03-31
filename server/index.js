@@ -11,7 +11,7 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "static")));
 app.use(fileUpload({}));
@@ -22,6 +22,7 @@ app.use(errorHandler);
 
 const start = async () => {
   try {
+    console.log(process.env.DATABASE_URL);
     await sequelize.authenticate();
     await sequelize.sync();
     app.listen(PORT, () => console.log(`str ${PORT}`));
