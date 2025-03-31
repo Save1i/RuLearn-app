@@ -1,5 +1,6 @@
 const Router = require('express')
-const router = new Router()
+const router = express.Router();
+
 const sectionRouter = require('./sectionRouter')
 const taskRouter = require('./taskRouter')
 const testRouter = require('./testRouter')

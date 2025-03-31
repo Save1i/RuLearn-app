@@ -13,6 +13,7 @@ const generateJwt = (id, email, role) => {
 class UserController {
     async registration(req, res, next) {
         try {
+            console.log("POST /api/user/registration", req.body);
             const { email, password, role } = req.body;
 
             if (!email || !password) {
