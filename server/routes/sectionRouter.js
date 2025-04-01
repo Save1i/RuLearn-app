@@ -4,8 +4,8 @@ const sectionController = require('../controllers/sectionController')
 const checkRole = require("../middleware/chekRoleMiddleware")
 const authMiddleware = require("../middleware/AuthMiddleware");
 
-router.post('/',checkRole('ADMIN'), sectionController.create)
-router.get('/', authMiddleware, sectionController.getAll)
-router.get('/:id', authMiddleware, sectionController.getOne)
+router.post('/', sectionController.create) // add checkRole('ADMIN')
+router.get('/',  sectionController.getAll)
+router.get('/:id', sectionController.getOne)
 
 module.exports = router
