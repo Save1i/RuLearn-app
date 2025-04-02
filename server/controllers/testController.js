@@ -1,78 +1,49 @@
-const uuid = require("uuid");
-const path = require("path");
-
+const { createClient } = require("@supabase/supabase-js");
 const { Test } = require("../modules/modules");
 const ApiError = require("../error/apiError");
+const path = require("path");
+const fs = require("fs");
+
+const supabase = createClient(
+    process.env.VITE_SUPABASE_URL,
+    process.env.VITE_SUPABASE_ANON_KEY
+);
 
 class TestController {
-  async create(req, res, next) {
-    try {
-      const { name, text_q, options, correct_answer, taskId } = req.body;
+    async create(req, res, next) {
+        try {
+            const { name, text_q, options, correct_answer, taskId } = req.body;
+            if (!name || !text_q || !options || !correct_answer || !taskId) {
+                return next(ApiError.badRequest("Заполните все обязательные поля"));
+            }
 
-      const { img } = req.files;
-      let fileName = uuid.v4() + ".png";
-      img.mv(path.resolve(__dirname, "..", "static", fileName));
+            let imgUrl = null;
+            if (req.files && req.files.img) {
+                const img = req.files.img;
+                const filePath = `uploads/${Date.now()}_${img.name}`;
+                const { data, error } = await supabase.storage
+                    .from("test-images")
+                    .upload(filePath, img.data, { contentType: img.mimetype });
 
-      const { audio_q } = req.files;
-      let audioFileName = null;
-      if(audio_q) {
-        audioFileName = uuid.v4() + ".mp3";
-        audio_q.mv(path.resolve(__dirname, "..", "static", audioFileName));  
-      }
-      console.log("Начинаем создание теста...");
-      const test = await Test.create({
-        name,
-        text_q,
-        options,
-        correct_answer,
-        img: fileName,
-        audio_q: audioFileName,
-        taskId,
-      });
-      console.log("Тест создан:", test);
+                if (error) throw error;
+                imgUrl = `${process.env.VITE_SUPABASE_URL}/storage/v1/object/public/test-images/${filePath}`;
+            }
 
-      return res.json(test);
-    } catch (e) {
-      next(ApiError.badRequest(e.message));
+            const test = await Test.create({
+                name,
+                text_q,
+                options,
+                correct_answer,
+                img: imgUrl,
+                taskId,
+            });
+
+            return res.json(test);
+        } catch (e) {
+            console.error("Ошибка в create:", e);
+            next(ApiError.badRequest(e.message));
+        }
     }
-  }
-
-  async getAll(req, res) {
-    const { taskId } = req.params;
-    let { limit, page } = req.query;
-
-    page = page || 1;
-    limit = limit || 1;
-    let offset = page * limit - limit;
-    let test;
-
-    if (taskId) {
-      test = await Test.findAndCountAll({ where: { taskId }, limit, offset });
-    }
-
-    if (!taskId) {
-      return res.status(404).json({ error: "Тест не найден" });
-    }
-
-    return res.json(test);
-  }
-
-  async getOne(req, res, next) {
-    try {
-      const { id: testId } = req.params; // testId теперь берется из params
-
-      const test = await Test.findOne({ where: { id: testId } });
-
-      if (!test) {
-        return res.status(404).json({ error: "Тест не найден" });
-      }
-
-      return res.json(test);
-    } catch (error) {
-      console.error("Error in getOne:", error);
-      next(error);
-    }
-  }
 }
 
 module.exports = new TestController();
