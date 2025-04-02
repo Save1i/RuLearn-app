@@ -18,7 +18,7 @@ class TestController {
       
       const { data, error } = await supabase
         .storage
-        .from('avatars')
+        .from('test-images')
         .upload(`public/${fileName}`, img, {
           cacheControl: '3600',
           upsert: false
