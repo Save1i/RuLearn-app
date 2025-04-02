@@ -21,22 +21,20 @@ class TestController {
                 const filePath = `uploads/${Date.now()}_${img.name}`;
 
                 // Загружаем файл в Supabase
-                const { data, error } = await supabase.storage
+                const { error } = await supabase.storage
                     .from("test-images")
                     .upload(filePath, img.data, {
                         contentType: img.mimetype,
-                        cacheControl: "3600", // Кеширование 1 час
-                        upsert: false, // Не перезаписывать файлы
+                        cacheControl: "3600",
+                        upsert: false,
                     });
 
                 if (error) throw error;
 
-                // Генерируем публичный URL
-                const { data: publicUrlData } = supabase.storage
+                // Получаем публичный URL
+                imgUrl = supabase.storage
                     .from("test-images")
                     .getPublicUrl(filePath);
-
-                imgUrl = publicUrlData.publicUrl;
             }
 
             const test = await Test.create({
