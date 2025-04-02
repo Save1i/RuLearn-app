@@ -1,12 +1,10 @@
 const { createClient } = require("@supabase/supabase-js");
 const { Test } = require("../modules/modules");
 const ApiError = require("../error/apiError");
-const path = require("path");
-const fs = require("fs");
 
 const supabase = createClient(
-    process.env.VITE_SUPABASE_URL,
-    process.env.VITE_SUPABASE_ANON_KEY
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_ANON_KEY
 );
 
 class TestController {
@@ -21,12 +19,24 @@ class TestController {
             if (req.files && req.files.img) {
                 const img = req.files.img;
                 const filePath = `uploads/${Date.now()}_${img.name}`;
+
+                // Загружаем файл в Supabase
                 const { data, error } = await supabase.storage
                     .from("test-images")
-                    .upload(filePath, img.data, { contentType: img.mimetype });
+                    .upload(filePath, img.data, {
+                        contentType: img.mimetype,
+                        cacheControl: "3600", // Кеширование 1 час
+                        upsert: false, // Не перезаписывать файлы
+                    });
 
                 if (error) throw error;
-                imgUrl = `${process.env.VITE_SUPABASE_URL}/storage/v1/object/public/test-images/${filePath}`;
+
+                // Генерируем публичный URL
+                const { data: publicUrlData } = supabase.storage
+                    .from("test-images")
+                    .getPublicUrl(filePath);
+
+                imgUrl = publicUrlData.publicUrl;
             }
 
             const test = await Test.create({
