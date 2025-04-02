@@ -11,14 +11,20 @@ class TestController {
 
       const { img } = req.files;
       let fileName = uuid.v4() + ".png";
-      img.mv(path.resolve(__dirname, "..", "static", fileName));
+      const { data, error } = await supabase
+        .storage
+        .from('avatars')
+        .upload(`public/${fileName}`, img, {
+          cacheControl: '3600',
+          upsert: false
+        })
 
       const { audio_q } = req.files;
       let audioFileName = null;
-      if(audio_q) {
-        audioFileName = uuid.v4() + ".mp3";
-        audio_q.mv(path.resolve(__dirname, "..", "static", audioFileName));  
-      }
+    //   if(audio_q) {
+    //     audioFileName = uuid.v4() + ".mp3";
+    //     audio_q.mv(path.resolve(__dirname, "..", "static", audioFileName));  
+    //   }
     
       const test = await Test.create({
         name,
