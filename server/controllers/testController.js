@@ -23,7 +23,7 @@ class TestController {
       const test = await Test.create({
         name,
         text_q,
-        options,
+        options: JSON.stringify(options),
         correct_answer,
         img: fileName,
         audio_q: audioFileName,
