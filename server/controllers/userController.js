@@ -29,12 +29,6 @@ class UserController {
 
             const user = await User.create({ email, role, password: hashPassword });
 
-            // Создание прогресса асинхронно, чтобы не блокировать пользователя
-            await Promise.all([
-                Task_progress.create({ userId: user.id }),
-                Test_progress.create({ userId: user.id }),
-                Statistics.create({ userId: user.id })
-            ]);
 
             if (!process.env.SECRET_KEY) {
                 return next(ApiError.internal("SECRET_KEY не задан в .env"));
