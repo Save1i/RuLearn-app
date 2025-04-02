@@ -19,7 +19,7 @@ class TestController {
         audioFileName = uuid.v4() + ".mp3";
         audio_q.mv(path.resolve(__dirname, "..", "static", audioFileName));  
       }
-    
+      console.log("Начинаем создание теста...");
       const test = await Test.create({
         name,
         text_q,
@@ -29,7 +29,7 @@ class TestController {
         audio_q: audioFileName,
         taskId,
       });
-
+      console.log("Тест создан:", test);
 
       return res.json(test);
     } catch (e) {
