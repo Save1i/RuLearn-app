@@ -1,11 +1,11 @@
 const Router = require("express");
 const router = new Router();
 const testController = require("../controllers/testController");
-const checkRole = require("../middleware/chekRoleMiddleware");
-const authMiddleware = require("../middleware/AuthMiddleware");
+const checkRole = require("../middleware/chekRoleMiddleware"); // Это можно оставить, если нужно
+// const authMiddleware = require("../middleware/AuthMiddleware"); // Убираем
 
-router.post("/", testController.create); // add checkRole("Admin")
-router.get("/list/:taskId", authMiddleware, testController.getAll);
-router.get("/:id", authMiddleware, testController.getOne);
+router.post("/", testController.create); // можно добавить checkRole("Admin")
+router.get("/:taskId", testController.getAll); // убрали authMiddleware
+router.get("/:id", testController.getOne); // убрали authMiddleware
 
 module.exports = router;
