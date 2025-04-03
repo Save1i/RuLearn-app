@@ -13,6 +13,7 @@ const ProfileUser = () => {
   }, 200)
 
   return (
+    <>
     <CSSTransition nodeRef={nodeRef} in={showProfile} timeout={200} classNames={{
       enterActive: styles.profileEnterActive,
       enterDone: styles.profileEnterDone,
@@ -33,9 +34,10 @@ const ProfileUser = () => {
         >
           <LogInLogOut />
         </div>
-      <NavBarBottom />
     </div>
     </CSSTransition>
+    <NavBarBottom />
+    </>
   );
 };
 
