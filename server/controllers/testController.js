@@ -1,10 +1,3 @@
-const { createClient } = require('@supabase/supabase-js');
-
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SERVICE_ROLE_KEY);
-
-const uuid = require("uuid");
-const path = require("path");
-
 const { Test } = require("../modules/modules");
 const ApiError = require("../error/apiError");
 
