@@ -25,6 +25,7 @@ const Task = sequelize.define("task", {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
   type: { type: DataTypes.STRING, allowNull: false },
   duration: { type: DataTypes.STRING, allowNull: false },
+  sectionId: { type: DataTypes.STRING, allowNull: false, defaultValue: "1" },
 });
 
 const Task_progress = sequelize.define("task_progress", {
