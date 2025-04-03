@@ -11,37 +11,15 @@ const ApiError = require("../error/apiError");
 class TestController {
   async create(req, res, next) {
     try {
-      const { name, text_q, options, correct_answer, taskId } = req.body;
-
-      const { img } = req.files;
-      let fileName = uuid.v4() + ".png";
-      
-      const { data, error } = await supabase
-        .storage
-        .from('test-images')
-        .upload(`public/${fileName}`, img, {
-          cacheControl: '3600',
-          upsert: false
-        });
-
-      if (error) {
-        return next(ApiError.badRequest(error.message));
-      }
-
-      const { audio_q } = req.files;
-      let audioFileName = null;
-      //   if(audio_q) {
-      //     audioFileName = uuid.v4() + ".mp3";
-      //     audio_q.mv(path.resolve(__dirname, "..", "static", audioFileName));  
-      //   }
-
+      const { name, text_q, options, correct_answer, taskId, img, audio_q} = req.body;
+    
       const test = await Test.create({
         name,
         text_q,
         options,
         correct_answer,
-        img: fileName,
-        audio_q: audioFileName,
+        img,
+        audio_q,
         taskId,
       });
 
