@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import Section from "./Section";
 import { Context } from "../main";
 import styles from "../styles/home.module.css";
@@ -19,15 +19,21 @@ const Home = observer(() => {
 
   const { id } = getUserId();
   
-
-
-  useEffect(() => {
+  const fetchData = useCallback(async () => {
     fetchSections().then((data) => home.setSection(data));
     fetchTaskProgress(id).then((data) => home.setTaskProgress(data)
   ).finally(() => setShowHome(true));
-  }, [user.isAuth]);
+}, [id, home]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const sections = useMemo(() => home.isSections, [home.isSections]);
+  const taskProgress = useMemo(() => home.isTaskProgress, [home.isTaskProgress]);
 
   return (
+    <>  
     <CSSTransition nodeRef={nodeRef} in={showHome} timeout={200} classNames={{
       enterActive: styles.homeEnterActive,
       enterDone: styles.homeEnterDone,
@@ -44,16 +50,15 @@ const Home = observer(() => {
             <div className={styles.sections}>
               <h1 className={styles.sections__title}>Задания и практика</h1>
               <div className={styles.sections__container}>
-                {home.isSections.length > 0 ? (
-                  home.isSections.map((section) => (
-                    <Section key={section.id} section={section} tasksP={home.isTaskProgress} />
+                {sections.length > 0 ? (
+                  sections.map((section) => (
+                    <Section key={section.id} section={section} tasksP={taskProgress} />
                   ))
                 ) : (
                   <p>Разделов пока нет</p>
                 )}
               </div>
             </div>
-            <NavBarBottom />
           </div>
         </>
       ) : (
@@ -71,6 +76,8 @@ const Home = observer(() => {
       )}
     </div>
     </CSSTransition>
+    <NavBarBottom />
+    </>
   );
 });
 
