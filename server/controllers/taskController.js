@@ -3,10 +3,21 @@ const ApiError = require("../error/apiError");
 
 class TaskController {
   async create(req, res) {
-    const { name, type, duration, completed } = req.body;
+    try {
+    const { name, type, duration, sectionId } = req.body;
 
-    const task = await Task.create({ name, type, duration, completed });
+    const task = await Task.create({ name, type, duration, sectionId});
     return res.json(task);
+    } 
+    catch (error) {
+        if (error.name === 'SequelizeUniqueConstraintError') {
+          // Обработать ошибку дублирования
+          console.log('Задача с таким именем уже существует');
+        } else {
+          // Обработать другие ошибки
+          console.log(error);
+        }
+    }
   }
 
   async getAll(req, res) {
