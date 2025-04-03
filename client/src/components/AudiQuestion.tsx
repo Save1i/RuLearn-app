@@ -7,7 +7,7 @@ interface AudioProp {
 }
 
 const AudioQuestion: React.FC<AudioProp> = ({ audio_q }) => {
-  const [audio] = useState(new Audio(import.meta.env.VITE_API_URL + audio_q));
+  const [audio] = useState(new Audio(audio_q));
 
   const playAudio = () => {
     audio.currentTime = 0; // Сбрасываем в начало
