@@ -23,9 +23,10 @@ const Test = observer(() => {
 
   useEffect(() => {
     // Получаем подписанные URL для изображения и аудио
-    getSignedUrls(['Group 12.png', 'vbo.mp3']).then(urls => {
-      const imgUrl = urls.find(url => url.filePath === 'Group 12.png')?.url;
-      const audioUrl = urls.find(url => url.filePath === 'vbo.mp3')?.url;
+    getSignedUrls(['cat1.png', 'hi.mp3']).then(urls => {
+      const imgUrl = urls.find(url => url.filePath === 'cat1.png')?.url;
+      const audioUrl = urls.find(url => url.filePath === 'hi.mp3')?.url;
+
       setImageUrl(imgUrl || '');
       setAudioUrl(audioUrl || '');
     });
