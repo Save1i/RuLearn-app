@@ -19,25 +19,49 @@ const Test = observer(() => {
   const { taskId } = useParams();
   const [imageUrl, setImageUrl] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
+  const [loadTest, setLoadTest] = useState(false);
+  const [loadData, setLoadData] = useState(false);
   const [showTest, setShowTest] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
 
   useEffect(() => {
     // Получаем подписанные URL для изображения и аудио
     getSignedUrls(['cat1.png', 'hi.mp3']).then(urls => {
       const imgUrl = urls.find(url => url.filePath === 'cat1.png')?.url;
       const audioUrl = urls.find(url => url.filePath === 'hi.mp3')?.url;
-
-      setImageUrl(imgUrl || '');
+    
+      if (imgUrl) {
+        const img = new Image();
+        img.src = imgUrl;
+        img.onload = () => {
+          setImageLoaded(true);
+          setImageUrl(imgUrl);
+        };
+      } else {
+        setImageLoaded(true); // даже если нет картинки — не ждем вечно
+      }
+    
       setAudioUrl(audioUrl || '');
-    });
+    }).finally(() => setLoadData(true));
+    
 
     // Здесь fetchTests, например, загрузка данных
     fetchTests(taskId, home.isPage, 1).then((data) => {
       home.setTest(data.rows);
       home.setTotalCount(data.count);
       setAnswer("");
-    }).finally(() => setShowTest(true));
+    }).finally(() => setLoadTest(true));
   }, [taskId, home.isPage]);
+
+useEffect(() => {
+  if (loadData && loadTest && imageLoaded) {
+    console.log("show");
+    setShowTest(true);
+  }
+}, [loadData, loadTest, imageLoaded]);
+
+
 
   const { id } = getUserId();
 
@@ -87,7 +111,7 @@ const Test = observer(() => {
           <div key={el.id} className={styles.test__inner}>
             <p className={styles.test__title}>{el.name}</p>
             <div className={styles.test__container}>
-              <img width={100} height={125} src={imageUrl} alt="" />
+            {imageUrl && <img width={100} height={125} src={imageUrl} alt="" />}
               {audioUrl && <AudioQuestion audio_q={audioUrl} />}
             </div>
             <div className={styles.options}>
