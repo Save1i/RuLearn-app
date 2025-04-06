@@ -25,6 +25,7 @@ transition: all .2s;
 
 .sections {
   margin-top: 20px;
+  padding-bottom: 96px;
 }
 
 .sections__title {
