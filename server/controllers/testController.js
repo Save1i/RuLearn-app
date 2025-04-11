@@ -1,18 +1,47 @@
+const { createClient } = require('@supabase/supabase-js');
+
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+
+const uuid = require("uuid");
+const path = require("path");
+
 const { Test } = require("../modules/modules");
 const ApiError = require("../error/apiError");
 
 class TestController {
   async create(req, res, next) {
     try {
-      const { name, text_q, options, correct_answer, taskId, img, audio_q} = req.body;
-    
+      const { name, text_q, options, correct_answer, taskId } = req.body;
+
+      const { img } = req.files;
+      let fileName = uuid.v4() + ".png";
+      
+      const { data, error } = await supabase
+        .storage
+        .from('static')
+        .upload(`${fileName}`, img);
+
+      if(data) {
+        getMedia();
+      }
+      if (error) {
+        return next(ApiError.badRequest(error.message));
+      }
+
+      const { audio_q } = req.files;
+      let audioFileName = null;
+      //   if(audio_q) {
+      //     audioFileName = uuid.v4() + ".mp3";
+      //     audio_q.mv(path.resolve(__dirname, "..", "static", audioFileName));  
+      //   }
+
       const test = await Test.create({
         name,
         text_q,
         options,
         correct_answer,
-        img,
-        audio_q,
+        img: fileName,
+        audio_q: audioFileName,
         taskId,
       });
 
