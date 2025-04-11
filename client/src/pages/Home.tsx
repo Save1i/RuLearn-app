@@ -31,7 +31,7 @@ const Home = observer(() => {
 
   const sections = useMemo(() => home.isSections, [home.isSections]);
   const taskProgress = useMemo(() => home.isTaskProgress, [home.isTaskProgress]);
-
+ 
   return (
     <>  
     <CSSTransition nodeRef={nodeRef} in={showHome} timeout={200} classNames={{

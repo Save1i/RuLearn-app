@@ -5,8 +5,9 @@
     "\\error",
     "\\middleware",
     "\\modules",
-    "\\routes"
+    "\\routes",
+    "\\static"
   ],
-  "SelectedNode": "\\controllers\\testProgressController.js",
+  "SelectedNode": "\\routes\\testRouter.js",
   "PreviewInSolutionExplorer": false
 }

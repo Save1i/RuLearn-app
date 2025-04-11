@@ -32,6 +32,7 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
 
   const completeTask = () => {
     postTaskProgress(userId, Number(taskId), home);
+
     showTest(false);
     setTimeout(() => {
       home.setPage(1);
