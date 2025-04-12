@@ -111,6 +111,9 @@ useEffect(() => {
                 height={125} 
                 src={mediaUrls[el.id].image} 
                 alt={el.name}
+                onError={(e) => {
+                  e.currentTarget.src = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/static//default_image.png`;
+                }}
               />
             )}
             {mediaUrls[el.id]?.audio && (
