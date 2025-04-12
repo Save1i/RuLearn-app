@@ -3,7 +3,7 @@ import { HiOutlineSpeakerWave } from "react-icons/hi2";
 import styles from "../styles/audioQ.module.css";
 
 interface AudioProp {
-  audio_q: string;
+  audio_q?: string;
 }
 
 const AudioQuestion: React.FC<AudioProp> = ({ audio_q }) => {
