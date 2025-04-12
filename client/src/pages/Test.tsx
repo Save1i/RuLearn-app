@@ -58,6 +58,7 @@ const Test = observer(() => {
     useEffect(() => {
       // Здесь fetchTests, например, загрузка данных
     fetchTests(taskId, home.isPage, 1).then((data) => {
+      setImageLoaded(false)
       home.setTest(data.rows);
       home.setTotalCount(data.count);
       setAnswer("");
@@ -67,7 +68,9 @@ const Test = observer(() => {
 useEffect(() => {
   if (loadData && loadTest && imageLoaded) {
     console.log("show");
-    setShowTest(true);
+      setShowTest(true);
+  } else {
+    setShowTest(false)
   }
 }, [loadData, loadTest, imageLoaded]);
 
@@ -108,9 +111,6 @@ useEffect(() => {
                 height={125} 
                 src={mediaUrls[el.id].image} 
                 alt={el.name}
-                onError={(e) => {
-                  e.currentTarget.src = '/fallback-image.png';
-                }}
               />
             )}
             {mediaUrls[el.id]?.audio && (
