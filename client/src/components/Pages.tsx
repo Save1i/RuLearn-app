@@ -9,6 +9,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { CSSTransition } from 'react-transition-group';
 
+
 interface AnswersProps {
   answer: string;
   correctAnswer: string;
@@ -48,6 +49,7 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
   const nextPage = () => {
     if (hasNextPage) {
       setShowPages(false)
+      showTest(false)
       setTimeout(() => {
         home.setPage(home.isPage + 1);
       }, 200)
