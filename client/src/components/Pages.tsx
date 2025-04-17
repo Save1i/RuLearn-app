@@ -57,6 +57,10 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
     }
   };
 
+  const isIncorrect = answer === "Ошибка";
+  const Icon = isIncorrect ? IoIosCloseCircle : IoIosCheckmarkCircle;
+  const statusClass = isIncorrect ? styles.incorrect : styles.correct;
+
   console.log(home.isPage);
 
   return (
@@ -68,17 +72,10 @@ const Pages: React.FC<AnswersProps> = observer(({ answer, correctAnswer, userId,
     }}>
     <div ref={nodeRef} className={styles.pages}>
       <div className={styles.pages__header}>
-        {answer === "Ошибка" ? (
           <>
-            <IoIosCloseCircle className={`${styles.pages__svg} ${styles.incorrect}`} />
-            <p className={`${styles.pages__answer} ${styles.incorrect}`}>{answer}</p>
+            <Icon className={`${styles.pages__svg} ${statusClass}`} />
+            <p className={`${styles.pages__answer} ${statusClass}`}>{answer}</p>
           </>
-        ) : (
-          <>
-            <IoIosCheckmarkCircle className={`${styles.pages__svg} ${styles.correct}`} />
-            <p className={`${styles.pages__answer} ${styles.correct}`}>{answer}</p>
-          </>
-        )}
       </div>
 
       {answer === "Ошибка" && (
