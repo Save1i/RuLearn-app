@@ -48,11 +48,11 @@ transform: translateY(0);
 }
 
 .incorrect {
-  color: #0077b6;
+  color: #E11D48;
 }
 
 .correct {
-  color: #ff6f04;
+  color: #16A34A;
 }
 .pages__answer {
   padding-top: 1px;
