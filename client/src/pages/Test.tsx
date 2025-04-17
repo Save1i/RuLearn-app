@@ -95,12 +95,12 @@ useEffect(() => {
       exit: styles.testExit,
       exitActive: styles.exitActive
     }}>
-      <div ref={nodeRef} className={styles.test}>
+    <div className={styles.test}>
         <div className={styles.test__header}>
           <CloseToHomeBtn showTest={setShowTest} />
           <TestprogressNav />
         </div>
-
+      <div ref={nodeRef} className={styles.test__content}>
         {home.isTests.map((el) => (
           <div key={el.id} className={styles.test__inner}>
             <p className={styles.test__title}>{el.name}</p>
@@ -144,6 +144,7 @@ useEffect(() => {
             )}
           </div>
         ))}
+      </div>
       </div>
     </CSSTransition>
   );
