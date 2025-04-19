@@ -9,7 +9,7 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SERVICE_ROLE
 class TestController {
   async create(req, res, next) {
     try {
-      const { name, text_q, options, correct_answer, taskId } = req.body;
+      const { name, text_q, options, correct_answer, taskId, test_type } = req.body;
       
       if (!req.files?.img) {
         return next(ApiError.badRequest("No image file provided"));
@@ -58,6 +58,7 @@ class TestController {
         img: fileName,
         audio_q: audioFileName,
         taskId,
+        test_type,
       });
 
       return res.json(test);
