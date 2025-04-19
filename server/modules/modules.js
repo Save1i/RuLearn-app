@@ -42,6 +42,7 @@ const Test = sequelize.define("test", {
   text_q: { type: DataTypes.STRING, defaultValue: "" },
   options: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false },
   correct_answer: { type: DataTypes.STRING, allowNull: false },
+  test_type: {type: DataTypes.STRING, allowNull: false },
 });
 
 const Test_progress = sequelize.define("test_progress", {
