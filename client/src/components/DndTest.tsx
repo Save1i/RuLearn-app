@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import Droppable from '../components/Droppable'
 import { Draggable } from '../components/Draggable'
