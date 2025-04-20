@@ -12,6 +12,10 @@ import CloseToHomeBtn from "../components/CloseToHomeBtn";
 import { CSSTransition } from 'react-transition-group';
 import { supabase } from "../http/supabaseClient";
 
+import DndTest from "../components/DndTest";
+import Options from "../components/Options";
+
+
 const Test = observer(() => {
   const { home } = useContext(Context);
   const [answer, setAnswer] = useState("");
@@ -23,7 +27,7 @@ const Test = observer(() => {
   const [imageLoaded, setImageLoaded] = useState(false);
   
   const [mediaUrls, setMediaUrls] = useState<Record<string, { image?: string; audio?: string }>>({});
-
+  
   useEffect(() => {
     
     const loadMediaUrls = () => {
@@ -74,19 +78,7 @@ useEffect(() => {
   }
 }, [loadData, loadTest, imageLoaded]);
 
-
-
   const { id } = getUserId();
-
-
-  const result = (selectedOption: string, correctAnswer: string) => {
-    if (answer) return;
-    if (selectedOption === correctAnswer) {
-      setAnswer("Правильно!");
-    } else {
-      setAnswer("Ошибка");
-    }
-  };
 
   return (
     <CSSTransition nodeRef={nodeRef} in={showTest} timeout={200} classNames={{
@@ -120,17 +112,13 @@ useEffect(() => {
               <AudioQuestion audio_q={mediaUrls[el.id].audio} />
             )}
             </div>
-            <div className={styles.options}>
-              {el.options.map((opt, index) => (
-                <button
-                  key={index}
-                  className={styles.options__btn}
-                  onClick={() => result(opt, el.correct_answer)}
-                >
-                  {opt}
-                </button>
-              ))}
-            </div>
+
+            {el.test_type === "quiz" ? 
+            <Options options={el.options} el={el.correct_answer} setAnswer={setAnswer} /> 
+            : 
+            <DndTest options={el.options} el={el.correct_answer} setAnswer={setAnswer}/>
+            }
+           
             {answer ? (
               <Pages
                 userId={id}
