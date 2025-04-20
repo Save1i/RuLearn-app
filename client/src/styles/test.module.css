@@ -60,27 +60,5 @@
   border-radius: 10px;
   background-color: #f1f5f9;
 }
-.options {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  max-height: 250px;
-  row-gap: 15px;
-  column-gap: 15px;
-  height: 200px;
-  margin-top: 65px;
-}
-.options__btn {
-  border-radius: 10px;
-  background-color: #fff;
-  font-weight: 600;
-  font-size: 12px;
-}
 
-.options__btn:active {
-  background-color: #d5ebfe;
-  border: 1px solid #0077b6;
-  transition: all .1s ease-in-out;
-}
 
