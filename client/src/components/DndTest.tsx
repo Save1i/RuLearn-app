@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { DndContext, DragEndEvent } from '@dnd-kit/core'
+import { DndContext, DragEndEvent, TouchSensor, useSensor, useSensors, PointerSensor } from '@dnd-kit/core'
 import Droppable from '../components/Droppable'
 import { Draggable } from '../components/Draggable'
 import styles from "../styles/dnd.module.css"
@@ -9,9 +9,15 @@ interface Data {
     el: string;
     setAnswer: (value: string) => void;
   }
-  
 
 const DndTest = ({options, el, setAnswer}: Data) => {
+
+  const isTouchDevice = typeof window !== 'undefined' &&
+  (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+
+  const sensors = useSensors(
+    useSensor(isTouchDevice ? TouchSensor : PointerSensor)
+  );
 
       const [fruits, setFruits] = useState<string[]>(options);
       const [cartItems, setCartItems] = useState<string[]>([]);
@@ -41,7 +47,7 @@ const DndTest = ({options, el, setAnswer}: Data) => {
       console.log(cartItems)
   return (
     <>
-    <DndContext onDragEnd={addItemsToCart}>
+    <DndContext onDragEnd={addItemsToCart} sensors={sensors}>
     <main className={styles.main}>
     <div className={styles["cart_section"]}>
         <Droppable items={cartItems} />
