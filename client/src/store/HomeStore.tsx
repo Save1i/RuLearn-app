@@ -27,6 +27,7 @@ interface Test {
   options: string[];
   correct_answer: string;
   img: string;
+  test_type: string;
 }
 
 interface Section {
