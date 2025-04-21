@@ -3,6 +3,7 @@ import { Context } from "../main";
 import { LOGIN_ROUTE } from "../utils/consts";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
+import styles from "../styles/loginlogout.module.css"
 
 const LogInLogOut = observer(() => {
   const navigate = useNavigate();
@@ -19,29 +20,15 @@ const LogInLogOut = observer(() => {
     <>
       {user.isAuth ? (
         <button
-          style={{
-            padding: "10px 20px 10px 20px",
-            background: "#ff6f04",
-            borderRadius: "10px",
-            fontSize: "16px",
-            color: "#fff",
-            fontWeight: "600", 
-          }}
-          onClick={() => logOut()}
+        className={styles.login__button}
+        onClick={() => logOut()}
         >
           Выйти
         </button>
       ) : (
         <button
-          style={{
-            padding: "10px 20px 10px 20px",
-            background: "#ff6f04",
-            borderRadius: "10px",
-            fontSize: "16px",
-            color: "#fff",
-            fontWeight: "600",
-          }}
-          onClick={() => navigate(LOGIN_ROUTE)}
+        className={styles.login__button}
+        onClick={() => navigate(LOGIN_ROUTE)}
         >
           Войти
         </button>
