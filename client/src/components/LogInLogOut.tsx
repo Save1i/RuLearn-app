@@ -38,6 +38,7 @@ const LogInLogOut = observer(() => {
             background: "#ff6f04",
             borderRadius: "10px",
             fontSize: "16px",
+            color: "#fff",
             fontWeight: "600",
           }}
           onClick={() => navigate(LOGIN_ROUTE)}
