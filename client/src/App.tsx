@@ -5,9 +5,6 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "./main";
 import { check } from "./http/userAPI";
 
-import { injectSpeedInsights } from '@vercel/speed-insights';
-
-injectSpeedInsights();
 
 const App = observer(() => {
   const {user} = useContext(Context);
