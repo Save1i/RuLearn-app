@@ -17,18 +17,46 @@ const Auth = observer(() => {
 
   const [error, setError] = useState("");
 
-  const validateEmail = (email: string) => {
+  const [formError, setFormError] = useState<{ email?: string; password?: string }>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+
+
+  const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
+  const validationPassword = (password: string): boolean => {
+    const goodPasword = password.length >= 8;
+    return goodPasword;
+  }
+
   const handleBlur = () => {
-    if (!email.current) return;
-    if (!validateEmail(email.current.value)) {
-      setError("Введите корректный email");
-    } else {
-      setError("");
+    const errors: { email?: string; password?: string } = {};
+  
+    const emailValue = email.current?.value ?? "";
+    const passwordValue = password.current?.value ?? "";
+  
+    if (!emailValue) {
+      errors.email = "Email обязателен";
+      setError("Email обязателен")
+    } else if (!validateEmail(emailValue)) {
+      errors.email = "Введите корректный email";
+      setError("Введите корректный email")
     }
+  
+    if (!passwordValue) {
+      errors.password = "Пароль обязателен";
+      setError("Пароль обязателен")
+    } else if (!validationPassword(passwordValue)) {
+      errors.password = "Пароль должен быть не короче 8 символов";
+      setError("Введите корректный пароль")
+    }
+  
+    setFormError(errors);
+    return Object.keys(errors).length === 0;
   };
 
   if (!context) {
@@ -38,16 +66,23 @@ const Auth = observer(() => {
 
   const { user } = context;
 
+
+
   const click = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setIsLoading(true);
+
+    const emailValue = email.current?.value ?? "";
+    const passwordValue = password.current?.value ?? "";
+  
     try {
-      if (!email.current || !password.current || error) return console.log("Ошибка в данных");
+      if (!handleBlur()) return;
       let data;
       if (isLogin) {
-        data = await login(email.current.value, password.current.value);
+        data = await login(emailValue, passwordValue);
         console.log(data);
       } else {
-        data = await registration(email.current.value, password.current.value);
+        data = await registration(emailValue, passwordValue);
         console.log(data);
       }
       user.setIsUser(data);
@@ -62,6 +97,8 @@ const Auth = observer(() => {
       } else {
         alert("Произошла неизвестная ошибка");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -79,22 +116,45 @@ const Auth = observer(() => {
               onBlur={handleBlur}
               id="email"
               type="email"
+              placeholder="Почта"
               ref={email}
               className={`${error ? styles.auth__input_error : styles.auth__input}`}
               required
             />
+            {formError.email && <p style={{ color: "red" }}>{formError.email}</p>}
           </div>
           <div className={styles.auth__inputGroup}>
             <label htmlFor="password" className={styles.auth__label}>
               Пароль
             </label>
+            <div style={{ position: "relative" }}>
             <input
+              onBlur={handleBlur}
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Пароль"
+              minLength={8}
               ref={password}
-              className={styles.auth__input}
+              className={`${error ? styles.auth__input_error : styles.auth__input}`}
               required
             />
+            <button
+            type="button"
+            onClick={() => setShowPassword(prev => !prev)}
+            style={{
+              position: "absolute",
+              right: 10,
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "none",
+              border: "none",
+              cursor: "pointer"
+            }}
+            >
+              {showPassword ? "🙈" : "👁"}
+            </button>
+            </div>
+            {formError.password && <p style={{ color: "red" }}>{formError.password}</p>}
           </div>
           {isLogin ? (
             <p className={styles.auth__link}>
@@ -112,7 +172,7 @@ const Auth = observer(() => {
             </p>
           )}
           <button onClick={(e) => click(e)} className={styles.auth__button}>
-            {isLogin ? "Войти" : "Регистрация"}
+            {isLoading ? "Загрузка..." : isLogin ? "Войти" : "Регистрация"}
           </button>
         </form>
       </div>
