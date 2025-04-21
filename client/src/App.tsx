@@ -5,7 +5,9 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "./main";
 import { check } from "./http/userAPI";
 
-import { SpeedInsights } from '@vercel/speed-insights/react';
+import { injectSpeedInsights } from '@vercel/speed-insights';
+
+injectSpeedInsights();
 
 const App = observer(() => {
   const {user} = useContext(Context);
@@ -32,7 +34,6 @@ const App = observer(() => {
       <div className="spinner-grow" style={{width: "3rem", height: "3rem", color: "#0077b6"}} role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
-      <SpeedInsights />
   </div>
     )
   }
