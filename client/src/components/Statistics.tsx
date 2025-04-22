@@ -1,4 +1,4 @@
-import statImg from "../img/stat.png";
+import statImg from "../img/cat-stat.png";
 import styles from "../styles/statistics.module.css";
 const Statistics = () => {
   return (
