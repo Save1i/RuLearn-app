@@ -25,7 +25,7 @@ const Task = sequelize.define("task", {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
   type: { type: DataTypes.STRING, allowNull: false },
   duration: { type: DataTypes.STRING, allowNull: false },
-  sectionId: { type: DataTypes.STRING, allowNull: false, defaultValue: "1" },
+  sectionId: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
 });
 
 const Task_progress = sequelize.define("task_progress", {
@@ -53,6 +53,13 @@ const Test_progress = sequelize.define("test_progress", {
 
 const Library = sequelize.define("library", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+}, {
+  indexes: [
+    {
+      unique: true,
+      fields: ['userId', 'dictionaryId'],
+    },
+  ],
 });
 
 const Dictionary = sequelize.define("dictionary", {
@@ -60,23 +67,48 @@ const Dictionary = sequelize.define("dictionary", {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
   source_language: { type: DataTypes.STRING, allowNull: false, defaultValue: "CHS" },
   target_language: { type: DataTypes.STRING, allowNull: false, defaultValue: "RU" },
-  selected: { type: DataTypes.BOOLEAN, defaultValue: false },
 });
 
 const Word = sequelize.define("word", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, unique: true, allowNull: false },
+  name: { type: DataTypes.STRING, unique: false, defaultValue: "word" },
   word_source: { type: DataTypes.STRING, allowNull: false, defaultValue: "CHS" },
   word_target: { type: DataTypes.STRING, allowNull: false, defaultValue: "RU" },
-  status: { type: DataTypes.STRING, allowNull: false, defaultValue: "Новое слово" },
-  repeat_show: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
 });
+
+  const WordProgress = sequelize.define('word_progress', {
+    word_progress_id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    last_seen: DataTypes.DATE,
+    next_review: DataTypes.DATE,
+    interval: DataTypes.INTEGER,
+    ease_factor: {
+      type: DataTypes.FLOAT,
+      defaultValue: 2.5,
+    },
+    repetition: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    status: {
+      type: DataTypes.TEXT,
+      defaultValue: 'learning',
+    },
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: ['userId', 'wordId'],
+      },
+    ],
+  });
+
 
 User.hasOne(Statistics);
 Statistics.belongsTo(User);
-
-// User.hasMany(Section)
-// Section.belongsTo(User)
 
 User.hasMany(Task_progress);
 Task_progress.belongsTo(User);
@@ -96,14 +128,21 @@ Task.belongsTo(Section);
 Task.hasMany(Test);
 Test.belongsTo(Task);
 
-User.hasOne(Library);
+User.hasMany(Library);
 Library.belongsTo(User);
 
-Library.hasMany(Dictionary);
-Dictionary.belongsTo(Library);
+Dictionary.hasMany(Library);
+Library.belongsTo(Dictionary, { foreignKey: 'dictionaryId', as: 'dictionary' });
+
 
 Dictionary.hasMany(Word);
 Word.belongsTo(Dictionary);
+
+User.hasMany(WordProgress);
+WordProgress.belongsTo(User, { onDelete: 'CASCADE' });
+
+Word.hasMany(WordProgress);
+WordProgress.belongsTo(Word, { onDelete: 'CASCADE' });
 
 module.exports = {
   User,
@@ -116,4 +155,5 @@ module.exports = {
   Library,
   Dictionary,
   Word,
+  WordProgress,
 };
