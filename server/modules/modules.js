@@ -131,7 +131,7 @@ Test.belongsTo(Task);
 User.hasMany(Library);
 Library.belongsTo(User);
 
-Dictionary.hasMany(Library);
+Dictionary.hasMany(Library, {as: "library"});
 Library.belongsTo(Dictionary, { foreignKey: 'dictionaryId', as: 'dictionary' });
 
 
