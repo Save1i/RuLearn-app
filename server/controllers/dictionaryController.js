@@ -36,8 +36,25 @@ class DictionaryController {
 
             const dictionaries = await Dictionary.findAll({
                 where: { userId },
-                order: [['createdAt', 'DESC']]
-            });
+                order: [['createdAt', 'ASC']],
+                attributes: {
+                  include: [
+                    [
+                      Sequelize.literal(
+                        `CASE WHEN "Library"."dictionaryId" IS NOT NULL THEN true ELSE false END`
+                      ),
+                      'inLibrary'
+                    ]
+                  ]
+                },
+                include: [{
+                  model: Library,
+                  as: 'Library',            
+                  attributes: [],          
+                  required: false,          
+                  where: { userId: Number(userId) }
+                }]
+              });
 
             return res.json(dictionaries);
         } catch (error) {
@@ -47,7 +64,7 @@ class DictionaryController {
     }
     async getOne(req, res) {
         try {
-            const { dictionaryId } = req.query;
+            const { dictionaryId } = req.params;
       
             if (!dictionaryId) {
               return res.status(400).json({ message: "Не указан dictionaryId" });
