@@ -1,11 +1,17 @@
 .word {
-    height: 60px;
+    height: 65px;
     width: 100%;
-    padding-left: 10px;
+    padding-left: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-bottom: 1px solid #899BB5;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.word:last-child {
+    margin-bottom: 30px;
 }
 
 .word__title {
