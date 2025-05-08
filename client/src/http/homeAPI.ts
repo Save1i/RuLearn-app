@@ -29,3 +29,41 @@ export const fetchTaskProgress = async (userId: number) => {
   });
   return data;
 };
+
+export const fetchLibrary = async (userId: number) => {
+  const { data } = await $authHost.get("api/library/", {
+    params: {
+      userId,
+    },
+  });
+  return data;
+};
+
+export const deleteLibrary = async (userId: number, dictionaryId: number) => {
+  const { data } = await $authHost.delete("api/library", {
+    params: {
+      userId,
+      dictionaryId,
+    },
+  });
+  return data;
+};
+
+export const postLibrary = async (userId: number, dictionaryId: number) => {
+  const { data } = await $authHost.post("api/library", {
+      userId,
+      dictionaryId,
+  });
+  return data;
+};
+
+export const fetchWords = async (dictionaryId: unknown) => {
+  const { data } = await $authHost.get("api/dictionary/" + dictionaryId, {
+    params: {
+      dictionaryId,
+    },
+  });
+  return data;
+};
+
+
