@@ -7,6 +7,10 @@ const userRouter = require('./userRouter')
 const taskProgressRouter = require('./taskProgressRouter')
 const testProgressRouter = require('./testProgressRouter')
 const supabaseRouter = require('./supabaseRoute')
+const libraryRouter = require('./libraryRouter')
+const dictionaryRouter = require('./dictionaryRouter')
+const wordRouter = require('./wordRouter')
+const wordProgressRouter = require('./wordProgressRouter')
 
 router.use('/user', userRouter)
 router.use('/section', sectionRouter)
@@ -15,6 +19,9 @@ router.use('/test', testRouter)
 router.use('/task-progress', taskProgressRouter)
 router.use('/test-progress', testProgressRouter)
 router.use('/supabase', supabaseRouter)
-
+router.use('/library', libraryRouter)
+router.use('/dictionary', dictionaryRouter)
+router.use('/word', wordRouter)
+router.use('/word-progress', wordProgressRouter)
 
 module.exports = router

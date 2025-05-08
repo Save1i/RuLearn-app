@@ -4,7 +4,7 @@ import { fetchTests } from "../http/homeAPI";
 import { observer } from "mobx-react-lite";
 import AudioQuestion from "../components/AudiQuestion";
 import Pages from "../components/Pages";
-import { Context } from "../main";
+import { Context } from "../context";
 import { getUserId } from "../http/getUserId";
 import styles from "../styles/test.module.css";
 import TestprogressNav from "../components/TestprogressNav";

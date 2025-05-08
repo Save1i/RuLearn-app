@@ -1,0 +1,9 @@
+.dictionary {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px 5px 10px;
+    border-radius: 10px;
+    background-color: #fff;
+}

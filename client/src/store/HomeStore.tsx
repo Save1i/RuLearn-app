@@ -35,6 +35,18 @@ interface Section {
   name: string;
 }
 
+interface Library {
+  id: number;
+  name: string;
+}
+
+interface Word {
+  id: number;
+  name: string;
+  source_language: string;
+  target_language: string;
+}
+
 export default class HomeStore {
   private _tasks: Array<Task>;
   private _tests: Array<Test>;
@@ -43,6 +55,8 @@ export default class HomeStore {
   private _totalCount: number;
   private _limit: number;
   private _taskProgress: Array<TaskProgress>;
+  private _library: Array<Library>;
+  private _word: Array<Word>;
 
   constructor() {
     this._sections = [];
@@ -52,6 +66,8 @@ export default class HomeStore {
     this._totalCount = 0;
     this._limit = 1;
     this._taskProgress = [];
+    this._library = [];
+    this._word = [];
 
     makeAutoObservable(this);
   }
@@ -84,6 +100,14 @@ export default class HomeStore {
     this._taskProgress = TaskProgress;
   }
 
+  setLibrary(library: Array<Library>) {
+    this._library = library;
+  }
+
+  setWord(word: Array<Word>) {
+    this._word = word;
+  }
+
   get isSections() {
     return this._sections;
   }
@@ -110,5 +134,13 @@ export default class HomeStore {
 
   get isTaskProgress() {
     return this._taskProgress;
+  }
+
+  get isLibrary() {
+    return this._library;
+  }
+
+  get isWord() {
+    return this._word;
   }
 }

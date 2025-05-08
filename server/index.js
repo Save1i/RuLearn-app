@@ -8,7 +8,7 @@ const router = require("./routes/index");
 const errorHandler = require("./middleware/ErrorHandingMinddleware");
 const path = require("path");
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
@@ -35,12 +35,15 @@ app.use("/api", router);
 // Обработчик ошибок, последний middleware
 app.use(errorHandler);
 
+
+
 // Запуск сервера
 const start = async () => {
   try {
     console.log(process.env.DATABASE_URL);  // Убедитесь, что переменные окружения правильные
     await sequelize.authenticate();
     await sequelize.sync();
+    
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (e) {
     console.log(e);

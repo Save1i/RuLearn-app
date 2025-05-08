@@ -3,6 +3,10 @@ import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import Test from "./pages/Test";
 import ProfileUser from "./pages/ProfileUser";
+import Swipe from "./pages/LearnWords";
+import ChooseCategory from "./pages/ChooseCategory";
+import WordInDictionary from "./pages/WordInDictionary";
+
 import {
   ADMIN_ROUTE,
   HOME_ROUTE,
@@ -10,6 +14,9 @@ import {
   REGISTRATION_ROUTE,
   TEST_ROUTE,
   PROFILE_ROUTE,
+  SWIPE_ROUTE,
+  CHOOSECATEGORY_ROUTE,
+  WORDS_ROUTE,
 } from "./utils/consts";
 
 export const authRoutes = [
@@ -39,5 +46,17 @@ export const publicRoutes = [
   {
     path: HOME_ROUTE,
     Component: Home,
+  },
+  {
+    path: SWIPE_ROUTE,
+    Component: Swipe,
+  },
+  {
+    path: CHOOSECATEGORY_ROUTE,
+    Component: ChooseCategory,
+  },
+  {
+    path: WORDS_ROUTE + "/:dictionaryId",
+    Component: WordInDictionary,
   },
 ];

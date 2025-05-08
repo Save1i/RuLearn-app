@@ -4,7 +4,7 @@ import { TbSwipe } from "react-icons/tb";
 import { LuNotebookPen } from "react-icons/lu";
 import { GoPerson } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import { HOME_ROUTE, PROFILE_ROUTE } from "../utils/consts";
+import { HOME_ROUTE, PROFILE_ROUTE, SWIPE_ROUTE } from "../utils/consts";
 
 const NavBarBottom = () => {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const NavBarBottom = () => {
         </li>
         <li className={styles.navBar__el}>
           <TbSwipe
+            onClick={() => navigate(SWIPE_ROUTE)}
             id="/swipe"
             style={path === "/swipe" ? { color: "#ff6f04" } : { color: "#899bb5" }}
             className={`${styles.navBar__el_svg} ${styles.full} ${styles.bold_l}`}

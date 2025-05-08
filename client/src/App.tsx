@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AppRouter } from "./components/AppRouter";
 import { observer } from "mobx-react-lite";
 import { useContext, useEffect, useState } from "react";
-import { Context } from "./main";
+import { Context } from "./context";
 import { check } from "./http/userAPI";
 
 

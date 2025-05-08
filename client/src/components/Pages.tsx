@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Context } from "../main";
+import { Context } from "../context";
 import { postTaskProgress } from "../http/postTaskProgress";
 import { useNavigate } from "react-router-dom";
 import { HOME_ROUTE } from "../utils/consts";

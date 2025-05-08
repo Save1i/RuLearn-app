@@ -1,0 +1,24 @@
+.button {
+    height: 70px;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    border-radius: 10px;
+}
+.button__text {
+    margin-left: 15px;
+}
+.title {
+    font-size: 16px;
+
+}
+.info {
+    font-size: 12px;
+}
+
+.icon {
+    height: 20px;
+    width: 20px;
+}
