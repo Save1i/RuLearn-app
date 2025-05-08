@@ -20,14 +20,26 @@ const Dictionary = ({name, choose, id, userId}: isProps) => {
   const [isChoosen, setIsChoosen] = useState<boolean>(choose)
   return (
     <div className={styles.dictionary} onClick={() => navigate(WORDS_ROUTE + "/" + id)}>
+      <div className={styles.dictionary__info}>
         <FaCircle style={{color: "#D9D9D9", width: "fit-content", height: "100%"}}/>
-        <p>{name}</p>
-        <input type="checkbox" checked={isChoosen} onClick={(e) => e.stopPropagation()} 
+        <p className={styles.dictionary__title}>{name}</p>
+      </div>
+      <div className={styles['checkbox-wrapper-46']}>
+        <input className={styles['inp-cbx']} id={id.toString()} type="checkbox" checked={isChoosen}
+          onClick={(e) => e.stopPropagation()}
           onChange={(e)=> {
             changeLibrary(userId, id, isChoosen, home)
             setIsChoosen(e.target.checked)
             console.log(isChoosen)
           }}/>
+          <label htmlFor={id.toString()} className={styles.cbx}>
+          <span>
+            <svg viewBox="0 0 12 10" height="10px" width="12px">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </svg>
+          </span>
+          </label>
+      </div>
     </div>
   )
 }

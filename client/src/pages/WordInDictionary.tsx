@@ -18,7 +18,10 @@ const WordInDictionary = () => {
     const [words, setWords] = useState<WordItem[]>([])
     const { dictionaryId } = useParams();
 
-    const dict = home.isLibrary.find(d => d.id.toString() === dictionaryId);
+    const dict = Array.isArray(home.isLibrary)
+  ? home.isLibrary.find(d => d.id.toString() === dictionaryId)
+  : undefined;
+
     const dictName = dict ? dict.name : ""; 
 
     useEffect(() => {
