@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import Section from "./Section";
-import { Context } from "../main";
+import { Context } from "../context";
 import styles from "../styles/home.module.css";
 import { fetchSections, fetchTaskProgress } from "../http/homeAPI";
 import { observer } from "mobx-react-lite";

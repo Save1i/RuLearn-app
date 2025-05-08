@@ -3,7 +3,7 @@ import { HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
 import { login, registration } from "../http/userAPI";
 import { useContext, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { Context } from "../main";
+import { Context } from "../context";
 import styles from "../styles/auth.module.css";
 import authImage from "../img/auth.png";
 

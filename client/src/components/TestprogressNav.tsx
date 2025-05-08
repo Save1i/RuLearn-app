@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styles from "../styles/testProgressNav.module.css";
-import { Context } from "../main";
+import { Context } from "../context";
 import { observer } from "mobx-react-lite";
 
 const TestprogressNav = observer(() => {

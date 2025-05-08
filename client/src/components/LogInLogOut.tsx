@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Context } from "../main";
+import { Context } from "../context";
 import { LOGIN_ROUTE } from "../utils/consts";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
