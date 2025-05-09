@@ -3,7 +3,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { RxCounterClockwiseClock } from "react-icons/rx";
 import styles from "../styles/ChooseSwipeComponent.module.css"
 import { useNavigate } from "react-router-dom";
-import { CHOOSECATEGORY_ROUTE } from "../utils/consts";
+import { CHOOSECATEGORY_ROUTE, NEWWORD_ROUTE } from "../utils/consts";
 
 interface isProps {
   icon: string;
@@ -32,7 +32,7 @@ const ChooseSwipeComponent = ({ icon, title, info }: isProps) => {
         case "GoPencil":
             return navigate(CHOOSECATEGORY_ROUTE)
         case "IoAddCircleOutline":
-            return <IoAddCircleOutline className={styles.icon} style={{color:"#FF6F04"}}/>;
+            return navigate(NEWWORD_ROUTE);
         case "RxCounterClockwiseClock":
             return <RxCounterClockwiseClock className={styles.icon} style={{color:"#0077B6"}}/>;
         default:

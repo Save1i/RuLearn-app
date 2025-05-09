@@ -7,6 +7,7 @@ export const PROFILE_ROUTE = "/profile";
 export const SWIPE_ROUTE = "/swipe";
 export const CHOOSECATEGORY_ROUTE = "/choose-category";
 export const WORDS_ROUTE = "/dictionary";
+export const NEWWORD_ROUTE = "/new-word";
 
 
 // export const SERVER_URL = "http://localhost:5000/";

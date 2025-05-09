@@ -6,6 +6,8 @@ const wordController = require("../controllers/wordController");
 
 router.post("/", wordController.create); // можно добавить checkRole("Admin")
 router.get("/", wordController.getAll); // убрали authMiddleware
+router.get("/new", wordController.getAllNew); // убрали authMiddleware
+router.get("/new-word", wordController.getNewWord); // убрали authMiddleware
 router.get("/:id", wordController.getOne); // убрали authMiddleware
 
 module.exports = router;

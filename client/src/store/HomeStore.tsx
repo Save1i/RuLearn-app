@@ -43,8 +43,8 @@ interface Library {
 interface Word {
   id: number;
   name: string;
-  source_language: string;
-  target_language: string;
+  word_source: string;
+  word_target: string;
 }
 
 export default class HomeStore {

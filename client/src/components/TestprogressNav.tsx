@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 
 const TestprogressNav = observer(() => {
   const { home } = useContext(Context);
-  const pageCount = Math.ceil(home.isTotalCount / home.isLimit);
+  const pageCount = Math.ceil(home.isTotalCount / 1);
   const progress = (100 / pageCount) * (home.isPage - 1);
 
   return (
