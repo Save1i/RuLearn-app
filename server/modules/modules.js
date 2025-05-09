@@ -97,6 +97,10 @@ const Word = sequelize.define("word", {
       type: DataTypes.TEXT,
       defaultValue: 'learning',
     },
+    isLearned: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    }
   }, {
     indexes: [
       {
