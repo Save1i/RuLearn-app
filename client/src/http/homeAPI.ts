@@ -66,4 +66,15 @@ export const fetchWords = async (dictionaryId: unknown) => {
   return data;
 };
 
+export const fetchNewWords = async (userId: number, page: number, limit: number) => {
+  const { data } = await $authHost.get("api/word/new-word", {
+    params: {
+      userId, 
+      page,
+      limit
+    },
+  });
+  return data;
+};
+
 
