@@ -5,10 +5,14 @@ class WordProgressController {
   async create(req, res, next) {
     console.log('req.body:', req.body);  // Проверяем, что приходит в теле запроса
     try {
-      const { wordId, userId, remembered } = req.body;
+      const { wordId, userId, remembered, isLearned} = req.body;
   
       if (!wordId || !userId || remembered === undefined) {
         return next(ApiError.badRequest("wordId, userId и remembered обязательны"));
+      }
+
+      if(isLearned === true) {
+        return res.status(200).json({message: "Слово заучено"})
       }
   
       let progress = await WordProgress.findOne({ where: { wordId, userId } });
@@ -27,9 +31,19 @@ class WordProgressController {
           repetition: remembered ? 1 : 0,
           ease_factor: 2.5,
           status: "learning",
+          isLearned,
         });
   
         return res.json(progress);
+      }
+
+      if(progress.isLearned === true) {
+        return res.status(200).json({message: "Слово заучено"})
+      }
+
+      // отметка о выученном слове (5 правильно подряд)
+      if(progress.ease_factor < 1.7) {
+        progress.isLearned = true
       }
   
       // Обновление существующего прогресса
@@ -40,6 +54,7 @@ class WordProgressController {
         progress.next_review = addDays(today, 1);
         progress.last_seen = today;
         progress.status = "learning";
+
       } else {
         progress.repetition += 1;
         progress.ease_factor = Math.max(1.3, progress.ease_factor - 0.2);
