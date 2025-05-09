@@ -6,6 +6,7 @@ import ProfileUser from "./pages/ProfileUser";
 import Swipe from "./pages/LearnWords";
 import ChooseCategory from "./pages/ChooseCategory";
 import WordInDictionary from "./pages/WordInDictionary";
+import SwipeCard from "./pages/LearnNewWords";
 
 import {
   ADMIN_ROUTE,
@@ -17,6 +18,7 @@ import {
   SWIPE_ROUTE,
   CHOOSECATEGORY_ROUTE,
   WORDS_ROUTE,
+  NEWWORD_ROUTE,
 } from "./utils/consts";
 
 export const authRoutes = [
@@ -58,5 +60,9 @@ export const publicRoutes = [
   {
     path: WORDS_ROUTE + "/:dictionaryId",
     Component: WordInDictionary,
+  },
+  {
+    path: NEWWORD_ROUTE,
+    Component: SwipeCard,
   },
 ];
