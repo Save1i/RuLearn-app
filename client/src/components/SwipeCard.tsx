@@ -6,8 +6,6 @@ import styles from '../styles/swipeCard.module.css'
 import { Context } from '../context'
 import { getUserId } from '../http/getUserId'
 import { fetchNewWords } from '../http/homeAPI'
-import HeaderNav from './HeaderNav'
-import TestprogressNav from './TestprogressNav'
 
 type Word = {
   id: number;
@@ -98,14 +96,10 @@ useEffect(() => {
   }
 });
 
-  console.log(home.isPage + "2")
-
 
 
   return (
     <>
-    <HeaderNav name='Учить новые слова'/>
-    <TestprogressNav />
     <div className={styles['card-stack']}>
       {words.length > 0 ? (
         <AnimatedDiv
