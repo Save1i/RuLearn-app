@@ -50,6 +50,8 @@ const SwipeCard = () => {
     config: { mass: 5, tension: 500, friction: 80 },
   })
 
+  const rightBtn = document.querySelector('.rignt__btn') as HTMLElement | null;
+  const leftBtn = document.querySelector('.left__btn') as HTMLElement | null;
 
   const AnimatedDiv = animated('div')
 
@@ -64,10 +66,39 @@ const SwipeCard = () => {
     onRest: () => {
       setWords(prev => prev.slice(1));
       api.set({ x: 0, rot: 0, opacity: 1 });
+      if(leftBtn && rightBtn) {
+      leftBtn.classList.remove('active');
+      rightBtn.classList.remove('active');
+      }
     },
   });
   setPageCount( prev => prev + 1)
 };
+
+const buttonActive = (distance: number) => { 
+  if(distance > 80) {
+    if (rightBtn) {
+      rightBtn.classList.add('active');
+    }
+  } else {
+    if (rightBtn) {
+      rightBtn.classList.remove('active');
+  }
+  }
+  if(distance < -80) {
+    if (leftBtn) {
+      leftBtn.classList.add('active');
+    }
+  } else {
+    if (leftBtn) {
+      leftBtn.classList.remove('active');
+  }
+  }
+
+
+
+
+}
 
 
 useEffect(() => {
@@ -78,7 +109,9 @@ useEffect(() => {
  const bind = useDrag(({ down, movement: [mx] }) => {
   const swipeDistance = Math.abs(mx);
   const dir = mx < 0 ? -1 : 1;
-  const threshold = 150;
+  const threshold = 80;
+  buttonActive(mx)
+  console.log(mx)
 
   if (!down && swipeDistance > threshold) {
 
@@ -93,6 +126,10 @@ useEffect(() => {
       onRest: () => {
         setWords(prev => prev.slice(1));
         api.set({ x: 0, rot: 0, opacity: 1 });
+        if(leftBtn && rightBtn) {
+        leftBtn.classList.remove('active');
+        rightBtn.classList.remove('active');
+      }
       }
     });
   } else {
@@ -109,6 +146,8 @@ useEffect(() => {
 
 
 
+
+
   return (
     <>
     <div className={styles['card-stack']}>
@@ -116,7 +155,6 @@ useEffect(() => {
         <AnimatedDiv
           {...bind()}
           className={styles['card__container']}
-          // style={{transform}}
           onClick={() => setFlipped(f=> !f)}
           style={{
             x: springProps.x,
@@ -126,15 +164,15 @@ useEffect(() => {
             transform
           }}
         >
-          <div className={`${styles.card} ${styles.card__front}`}>
+          <div className={`${styles.card__el} ${styles.card__front}`}>
             {words[0].word_source}
           </div>
-          <div className={`${styles.card} ${styles.card__back}`}>
+          <div className={`${styles.card__el} ${styles.card__back}`}>
             {words[0].word_target}
           </div>
         </AnimatedDiv>
          ) : (
-        <div className={styles['card']}>🎉 Все карточки просмотрены</div>
+        <div className={styles['card__text']}>🎉 Все карточки просмотрены</div>
       )}
     </div>
       <div className={styles.buttons__container}>
