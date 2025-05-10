@@ -1,0 +1,55 @@
+body {
+    overflow: hidden;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.swipe__btn {
+  font-size: 16px;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  background: none;
+}
+
+.button__icon {
+    height: 30px;
+    width: 30px;
+}
+
+.button__text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.rignt__btn {
+    transition: all 0.3s ease;
+}
+
+.left__btn {
+    transition: all 0.3s ease;
+}
+
+.rignt__btn.active {
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+}
+
+.left__btn.active {
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+}
+
+.card__text {
+  font-size: 18px;
+  font-weight: 600;
+}
+
