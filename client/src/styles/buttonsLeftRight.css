@@ -30,5 +30,26 @@ body {
     font-weight: 600;
 }
 
+.rignt__btn {
+    transition: all 0.3s ease;
+}
 
+.left__btn {
+    transition: all 0.3s ease;
+}
+
+.rignt__btn.active {
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+}
+
+.left__btn.active {
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+}
+
+.card__text {
+  font-size: 18px;
+  font-weight: 600;
+}
 
