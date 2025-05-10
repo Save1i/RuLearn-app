@@ -7,10 +7,10 @@ import styles from '../styles/learnNewWord.module.css'
 const LearnNewWords = () => {
   return (
     <div>
-    <HeaderNav name='Учить новые слова'/>
-    <div className={styles.learn__progress}>
-      <TestprogressNav />
-    </div>
+      <HeaderNav name='Учить новые слова'/>
+        <div className={styles.learn__progress}>
+          <TestprogressNav />
+        </div>
       <SwipeCard/>
     </div>
   )
