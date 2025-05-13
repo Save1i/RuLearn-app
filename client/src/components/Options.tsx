@@ -17,8 +17,10 @@ const Options = ({options, el, setAnswer}: Data) => {
         }
       };
 
+  const btnClass = options.length > 3 ? 'options__grid' : 'options__flex'
+
   return (
-    <div className={styles.options}>
+    <div className={styles[btnClass]}>
         {options.map((opt, index) => (
       <button
         key={index}
