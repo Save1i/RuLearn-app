@@ -6,6 +6,7 @@ interface DraggableProps {
     id: string;
     class?: string;
     children: React.ReactNode;
+    dClick: ()=> void;
   }
 
 export function Draggable(props: DraggableProps) {
@@ -16,10 +17,12 @@ export function Draggable(props: DraggableProps) {
   const style = {   
     transform: CSS.Translate.toString(transform),
   };
+
+
   
   
   return (
-    <button ref={setNodeRef} className={`${props.class && styles[props.class]} ${styles.word_button}`} style={style} {...listeners} {...attributes}>
+    <button ref={setNodeRef} onClick={props.dClick} className={`${props.class && styles[props.class]} ${styles.word_button}`} style={style} {...listeners} {...attributes}>
       {props.children}
     </button>
   );
