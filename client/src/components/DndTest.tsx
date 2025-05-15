@@ -31,6 +31,17 @@ const DndTest = ({options, el, setAnswer}: Data) => {
         }
       };
 
+      const dragOnClick = (item: string) => {
+          setCartItems(prev =>  [...new Set([...prev, item])]);
+          setFruits(prev => prev.filter(fruit => fruit !== item));
+      }
+
+      const handleReturnToFruits = (item: string) => {
+          setFruits(prev => [...new Set([...prev, item])]); // вернуть в список
+          setCartItems(prev => prev.filter(cartItem => cartItem !== item)); // удалить из корзины
+      };
+
+
       const addItemsToCart = (e: DragEndEvent) => {
         const newItem = e.active?.data?.current?.title;
         if (!newItem) return;
@@ -50,14 +61,14 @@ const DndTest = ({options, el, setAnswer}: Data) => {
     <DndContext onDragEnd={addItemsToCart} sensors={sensors}>
     <main className={styles.main}>
     <div className={styles["cart_section"]}>
-        <Droppable items={cartItems} />
+        <Droppable items={cartItems} dClick={handleReturnToFruits}/>
       </div>
       <div className={styles["fruit_list_section"]}>
-        <ul className={styles["fruit_list"]}>
+        <ul className={styles["fruit_list"]} id='fruit-cart'>
 {options.map((fruit, index) => (
   <li key={fruit} className={styles["fruit_container"]} >
     {(fruits.includes(fruit) && (
-      <Draggable class={`el${index}`} key={fruit} id={fruit}>
+      <Draggable class={`el${index}`} dClick={() => dragOnClick(fruit)} key={fruit} id={fruit}>
         {fruit}
       </Draggable>
     )) || 
