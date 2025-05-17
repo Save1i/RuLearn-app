@@ -78,7 +78,7 @@ class TestController {
     let test;
 
     if (taskId) {
-      test = await Test.findAndCountAll({ where: { taskId }, limit, offset });
+      test = await Test.findAndCountAll({ where: { taskId }, limit, offset , attributes: ['id', 'name', 'test_type', 'debug_field', 'img', 'audio_q', 'text_q', 'options', 'correct_answer', 'taskId']});
     }
 
     if (!taskId) {

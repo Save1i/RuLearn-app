@@ -25,7 +25,6 @@ const Task = sequelize.define("task", {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
   type: { type: DataTypes.STRING, allowNull: false },
   duration: { type: DataTypes.STRING, allowNull: false },
-  sectionId: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
 });
 
 const Task_progress = sequelize.define("task_progress", {
@@ -43,6 +42,7 @@ const Test = sequelize.define("test", {
   options: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false },
   correct_answer: { type: DataTypes.STRING, allowNull: false },
   test_type: {type: DataTypes.STRING, defaultValue: "quiz" },
+  debug_field: {type: DataTypes.STRING, defaultValue: "work" },
 });
 
 const Test_progress = sequelize.define("test_progress", {

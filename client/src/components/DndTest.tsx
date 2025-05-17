@@ -32,11 +32,13 @@ const DndTest = ({options, el, setAnswer}: Data) => {
       };
 
       const dragOnClick = (item: string) => {
+        console.log("burger")
           setCartItems(prev =>  [...new Set([...prev, item])]);
           setFruits(prev => prev.filter(fruit => fruit !== item));
       }
 
       const handleReturnToFruits = (item: string) => {
+        console.log("chips")
           setFruits(prev => [...new Set([...prev, item])]); // вернуть в список
           setCartItems(prev => prev.filter(cartItem => cartItem !== item)); // удалить из корзины
       };
@@ -68,7 +70,7 @@ const DndTest = ({options, el, setAnswer}: Data) => {
 {options.map((fruit, index) => (
   <li key={fruit} className={styles["fruit_container"]} >
     {(fruits.includes(fruit) && (
-      <Draggable class={`el${index}`} dClick={() => dragOnClick(fruit)} key={fruit} id={fruit}>
+      <Draggable class={`el${index}`} isTouchDevice={isTouchDevice} dClick={() => dragOnClick(fruit)} key={fruit} id={fruit}>
         {fruit}
       </Draggable>
     )) || 
