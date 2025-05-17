@@ -36,7 +36,6 @@ app.use("/api", router);
 app.use(errorHandler);
 
 
-
 // Запуск сервера
 const start = async () => {
   try {
