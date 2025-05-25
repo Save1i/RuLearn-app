@@ -31,9 +31,9 @@ useEffect(() => {
           {
           isExploding ? <ConfettiExplosion 
           force={0.1} 
-          particleCount={20}
+          particleCount={25}
           width={450}
-          particleSize={4}
+          particleSize={6}
           duration={2500}
           style={{
   position: 'absolute',
