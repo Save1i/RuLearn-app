@@ -111,7 +111,6 @@ useEffect(() => {
   const dir = mx < 0 ? -1 : 1;
   const threshold = 80;
   buttonActive(mx)
-  console.log(mx)
 
   if (!down && swipeDistance > threshold) {
 
