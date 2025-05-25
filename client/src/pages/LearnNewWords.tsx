@@ -13,16 +13,16 @@ const LearnNewWords = observer(() => {
   const { home } = useContext(Context);
 
   const [isExploding, setIsExploding] = useState(false);
+  const [wasExploded, setWasExploded] = useState(false);
 
-  useEffect(() => {
-    console.log(home.isTotalCount)
-    console.log(home.isPage)
-    if(home.isTotalCount > 0 && home.isTotalCount < home.isPage) {
-      setTimeout(() => {
-        setIsExploding(true)
-      }, 500)
-    }
-}, [home.isTotalCount, home.isPage])
+useEffect(() => {
+  if (!wasExploded && home.isTotalCount > 0 && home.isTotalCount < home.isPage) {
+    setTimeout(() => {
+      setIsExploding(true);
+      setWasExploded(true);
+    }, 300);
+  }
+}, [home.isTotalCount, home.isPage]);
 
   return (
     <div>
@@ -31,10 +31,10 @@ const LearnNewWords = observer(() => {
           {
           isExploding ? <ConfettiExplosion 
           force={0.1} 
-          particleCount={50}
+          particleCount={25}
           width={600}
-          particleSize={10}
-          duration={4500}
+          particleSize={6}
+          duration={2500}
           style={{
   position: 'absolute',
   top: '45px',
