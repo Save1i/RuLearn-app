@@ -31,10 +31,10 @@ const LearnNewWords = observer(() => {
           {
           isExploding ? <ConfettiExplosion 
           force={0.1} 
-          particleCount={80}
-          width={1000}
-          particleSize={8}
-          duration={4000}
+          particleCount={50}
+          width={600}
+          particleSize={10}
+          duration={4500}
           style={{
   position: 'absolute',
   top: '45px',
