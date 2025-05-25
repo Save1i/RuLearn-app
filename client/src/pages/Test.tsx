@@ -90,7 +90,7 @@ useEffect(() => {
     <div className={styles.test}>
         <div className={styles.test__header}>
           <CloseToHomeBtn showTest={setShowTest} />
-          <TestprogressNav />
+          <TestprogressNav totalCount={home.isTotalCount} isPage={home.isPage}/>
         </div>
       <div ref={nodeRef} className={styles.test__content}>
         {home.isTests.map((el) => (
