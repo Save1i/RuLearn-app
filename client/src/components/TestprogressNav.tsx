@@ -1,12 +1,15 @@
-import { useContext } from "react";
 import styles from "../styles/testProgressNav.module.css";
-import { Context } from "../context";
 import { observer } from "mobx-react-lite";
 
-const TestprogressNav = observer(() => {
-  const { home } = useContext(Context);
-  const pageCount = Math.ceil(home.isTotalCount / 1);
-  const progress = (100 / pageCount) * (home.isPage - 1);
+interface Proms {
+  totalCount: number;
+  isPage: number;
+}
+
+const TestprogressNav = observer(({totalCount, isPage}: Proms) => {
+
+  const pageCount = Math.ceil(totalCount / 1);
+  const progress = (100 / pageCount) * (isPage - 1);
 
   return (
     <div className={styles.progress}>
