@@ -31,7 +31,7 @@ const LearnNewWords = observer(() => {
           {
           isExploding ? <ConfettiExplosion 
           force={0.1} 
-          particleCount={250}
+          particleCount={80}
           width={1000}
           particleSize={8}
           duration={4000}
