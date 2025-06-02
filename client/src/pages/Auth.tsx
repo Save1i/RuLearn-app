@@ -85,10 +85,16 @@ const Auth = observer(() => {
         data = await registration(emailValue, passwordValue);
         console.log(data);
       }
-      user.setIsUser(data);
-      user.setIsAuth(true);
 
-      navigate(HOME_ROUTE);
+      if(typeof data === 'object') {
+        user.setIsUser(data);
+        user.setIsAuth(true);
+
+        navigate(HOME_ROUTE);
+      } else {
+        console.log(data, error)
+      }
+
     } catch (error: unknown) {
       if (typeof error === "object" && error !== null && "response" in error) {
         const serverError = error as { response: { data?: { message?: string } } };
