@@ -6,7 +6,7 @@ import styles from "../styles/profile.module.css"
 
 const ProfileUser = () => {
   const nodeRef = useRef(null);
-  const [showProfile, setShowProfile] = useState(false)
+  const [showProfile, setShowProfile] = useState<boolean>(false)
 
   setTimeout(() => {
     setShowProfile(true)

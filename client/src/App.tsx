@@ -13,12 +13,17 @@ const App = observer(() => {
   useEffect(() => {
     check()
       .then((data) => {
-        user.setIsUser(data);
-        user.setIsAuth(true);
+        if(typeof data === 'object') {
+          user.setIsUser(data);
+          user.setIsAuth(true);
+        } else {
+          throw Error("error")
+        }
+
       })
       .catch((error) => {
         console.error("Ошибка при проверке авторизации:", error.response?.data || error.message);
-        user.setIsUser({});
+        user.setIsUser(undefined);
         user.setIsAuth(false);
         localStorage.removeItem("token");
       })

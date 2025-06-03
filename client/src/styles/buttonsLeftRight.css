@@ -1,13 +1,15 @@
 body {
     overflow: hidden;
+    position: relative;
 }
 
 .buttons {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 20px;
   margin-top: 20px;
+  margin-right: 35px;
+  margin-left: 35px;
 }
 
 .swipe__btn {

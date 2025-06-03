@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import { Context } from "../context";
 import styles from "../styles/auth.module.css";
 import authImage from "../img/auth.png";
+import { AxiosError } from "axios";
 
 const Auth = observer(() => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Auth = observer(() => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const [formError, setFormError] = useState<{ email?: string; password?: string }>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -79,21 +80,27 @@ const Auth = observer(() => {
       if (!handleBlur()) return;
       let data;
       if (isLogin) {
-        data = await login(emailValue, passwordValue);
+        data = await login({email: emailValue, password: passwordValue});
         console.log(data);
       } else {
-        data = await registration(emailValue, passwordValue);
+        data = await registration({email: emailValue, password: passwordValue});
         console.log(data);
       }
-      user.setIsUser(data);
-      user.setIsAuth(true);
 
-      navigate(HOME_ROUTE);
+      if(typeof data === 'object') {
+        user.setIsUser(data);
+        user.setIsAuth(true);
+
+        navigate(HOME_ROUTE);
+      } else {
+        console.log(data, error)
+      }
+
     } catch (error: unknown) {
       if (typeof error === "object" && error !== null && "response" in error) {
-        const serverError = error as { response: { data?: { message?: string } } };
-        console.error("Ошибка сервера:", serverError.response.data);
-        alert(serverError.response.data?.message || "Ошибка при авторизации");
+        const serverError = error as AxiosError<{message: string}>
+        console.error("Ошибка сервера:", serverError.response?.data?.message);
+        alert(serverError.response?.data?.message || "Ошибка при авторизации");
       } else {
         alert("Произошла неизвестная ошибка");
       }
