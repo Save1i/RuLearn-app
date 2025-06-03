@@ -21,10 +21,10 @@ const Test = observer(() => {
   const [answer, setAnswer] = useState("");
   const nodeRef = useRef(null);
   const { taskId } = useParams();
-  const [loadTest, setLoadTest] = useState(false);
-  const [loadData, setLoadData] = useState(false);
-  const [showTest, setShowTest] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [loadTest, setLoadTest] = useState<boolean>(false);
+  const [loadData, setLoadData] = useState<boolean>(false);
+  const [showTest, setShowTest] = useState<boolean>(false);
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   
   const [mediaUrls, setMediaUrls] = useState<Record<string, { image?: string; audio?: string }>>({});
   
