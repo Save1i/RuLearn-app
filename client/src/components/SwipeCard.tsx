@@ -4,8 +4,6 @@ import { animated, useSpring } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
 import styles from '../styles/swipeCard.module.css'
 import { Context } from '../context'
-import { getUserId } from '../http/getUserId'
-import { fetchNewWords } from '../http/homeAPI'
 import ButtonsLeftRignt from './ButtonsLeftRignt'
 
 type Word = {
@@ -18,7 +16,6 @@ type Word = {
 
 const SwipeCard = () => {
   const {home} = useContext(Context)
-  const {id} = getUserId()
   const [words, setWords] = useState<Word[]>([])
   const [pagesCount, setPageCount] = useState(1)
 
@@ -30,15 +27,6 @@ const SwipeCard = () => {
     opacity: 1,
     config: { tension: 300, friction: 30 },
   }));
-  
-
-  useEffect(() => {
-    fetchNewWords(id, 1, 10).then((data) => {
-    home.setWord(data.rows)
-    home.setTotalCount(data.rows.length)
-    console.log(data.rows.length)
-    setWords(home.isWord)
-  })}, [id, home])
 
   console.log(words[0])
 
@@ -49,6 +37,10 @@ const SwipeCard = () => {
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
     config: { mass: 5, tension: 500, friction: 80 },
   })
+
+  useEffect(() => {
+    setWords(home.isWord)
+  }, [home.isWord])
 
   const rightBtn = document.querySelector('.rignt__btn') as HTMLElement | null;
   const leftBtn = document.querySelector('.left__btn') as HTMLElement | null;
@@ -94,10 +86,6 @@ const buttonActive = (distance: number) => {
       leftBtn.classList.remove('active');
   }
   }
-
-
-
-
 }
 
 
@@ -171,7 +159,7 @@ useEffect(() => {
           </div>
         </AnimatedDiv>
          ) : (
-        <div className={styles['card__text']}>🎉 Все карточки просмотрены</div>
+        <div className={styles['card__text']}>Все карточки просмотрены</div>
       )}
     </div>
       <div className={styles.buttons__container}>
