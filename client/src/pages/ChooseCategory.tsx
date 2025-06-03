@@ -5,6 +5,8 @@ import Dictionary from "../components/Dictionary";
 import styles from "../styles/chooseCategory.module.css"
 import { getUserId } from "../http/getUserId";
 import HeaderNav from "../components/HeaderNav";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 type LibraryItem = {
     id: number;
@@ -29,20 +31,29 @@ const ChooseCategory = () => {
           } catch (error) {
             console.error("Failed to load library:", error);
           } finally {
-            setLoading(false);
+            setLoading(false); //false
           }
         }
     
         loadLibrary();
       }, [home]);
 
-      if (loading) {
-        return <div>Loading categories...</div>;
-      }
-
   return (
     <>
     <HeaderNav name="Выбор категорий"/>
+      {loading ? 
+      <div className={styles.library}>
+        <Skeleton
+    count={9}
+    height={60}
+    borderRadius={10}
+    baseColor="#e5e7eb"
+    highlightColor="#f5f5f5"
+    duration={1.2}
+    style={{marginBottom: "10px"}}
+  />
+      </div>
+        :
       <div className={styles.library}>
           {categories.length > 0 ? (
               categories.map((dictionary) => (
@@ -59,6 +70,8 @@ const ChooseCategory = () => {
                   <p>Библиотека пуста</p>
           )}
       </div>
+      }
+
     </>
   )
 }
