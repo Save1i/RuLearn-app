@@ -11,4 +11,4 @@ export const NEWWORD_ROUTE = "/new-word";
 
 
 // export const SERVER_URL = "http://localhost:5000/";
-export const SERVER_URL = "https://rulearn.up.railway.app/";
+export const SERVER_URL = "https://rulearn-app.onrender.com/";
