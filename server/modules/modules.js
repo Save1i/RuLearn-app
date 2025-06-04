@@ -39,7 +39,7 @@ const Test = sequelize.define("test", {
   audio_q: { type: DataTypes.STRING, defaultValue: "" },
   img: { type: DataTypes.STRING, allowNull: false },
   text_q: { type: DataTypes.STRING, defaultValue: "" },
-  options: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false },
+  options: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false, defaultValue: []},
   correct_answer: { type: DataTypes.STRING, allowNull: false },
   test_type: {type: DataTypes.STRING, defaultValue: "quiz" },
   debug_field: {type: DataTypes.STRING, defaultValue: "work" },
