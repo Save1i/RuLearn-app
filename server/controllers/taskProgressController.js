@@ -46,7 +46,7 @@ class TaskProgressController {
       }
 
       const tasks = await Task.findAll({
-        attributes: ["id", "name", "type", "duration", "sectionId"],
+        attributes: ["id", "name", "type", "duration", "sectionId", "availability"],
         include: [
           {
             model: Task_progress,
@@ -67,6 +67,7 @@ class TaskProgressController {
         duration: task.duration,
         sectionId: task.sectionId,
         learned: task.progress && task.progress.length > 0 ? task.progress[0].learned : false,
+        availability: task.availability
       }));
 
       return res.json(result);
