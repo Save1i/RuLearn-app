@@ -4,6 +4,7 @@ import { RxCounterClockwiseClock } from "react-icons/rx";
 import styles from "../styles/ChooseSwipeComponent.module.css"
 import { useNavigate } from "react-router-dom";
 import { CHOOSECATEGORY_ROUTE, NEWWORD_ROUTE } from "../utils/consts";
+import { useState } from "react";
 
 interface isProps {
   icon: string;
@@ -13,6 +14,16 @@ interface isProps {
 
 const ChooseSwipeComponent = ({ icon, title, info }: isProps) => {
     const navigate = useNavigate()
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    const openModal = () => {
+        setIsModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setIsModalOpen(false);
+      };
 
     const renderIcon = () => {
         switch (icon) {
@@ -34,13 +45,14 @@ const ChooseSwipeComponent = ({ icon, title, info }: isProps) => {
         case "IoAddCircleOutline":
             return navigate(NEWWORD_ROUTE);
         case "RxCounterClockwiseClock":
-            return <RxCounterClockwiseClock className={styles.icon} style={{color:"#0077B6"}}/>;
+            return openModal()
         default:
             return null;
         }
     };
 
   return (
+    <>
     <div className={styles.button} onClick={() => renderRouter()}>
       {renderIcon()}
       <div className={styles.button__text}>
@@ -48,6 +60,16 @@ const ChooseSwipeComponent = ({ icon, title, info }: isProps) => {
         <p className={styles.info}>{info}</p>
       </div>
     </div>
+
+     {isModalOpen && (
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <h2 className={styles.modal__title}>Страница ещё не реализована</h2>
+            <button className={styles.closeBtn} onClick={closeModal}>Закрыть</button>
+          </div>
+        </div>
+      )}
+      </>
   );
 };
 

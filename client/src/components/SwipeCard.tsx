@@ -138,33 +138,41 @@ useEffect(() => {
   return (
     <>
     <div className={styles['card-stack']}>
-      {words.length > 0 ? (
-        <AnimatedDiv
-          {...bind()}
-          className={styles['card__container']}
-          onClick={() => setFlipped(f=> !f)}
-          style={{
-            x: springProps.x,
-            rotateZ: springProps.rot,
-            opacity: springProps.opacity,
-            touchAction: 'none',
-            transform
-          }}
-        >
-          <div className={`${styles.card__el} ${styles.card__front}`}>
-            {words[0].word_source}
-          </div>
-          <div className={`${styles.card__el} ${styles.card__back}`}>
-            {words[0].word_target}
-          </div>
-        </AnimatedDiv>
-         ) : (
-        <div className={styles['card__text']}>Все карточки просмотрены</div>
-      )}
+     {words.length > 0 ? (
+  <AnimatedDiv
+    {...bind()}
+    className={styles['card__container']}
+    onClick={() => setFlipped(f => !f)}
+    style={{
+      x: springProps.x,
+      rotateZ: springProps.rot,
+      opacity: springProps.opacity,
+      touchAction: 'none',
+      transform,
+    }}
+  >
+    <div className={`${styles.card__el} ${styles.card__front}`}>
+      {words[0].word_source}
     </div>
+    <div className={`${styles.card__el} ${styles.card__back}`}>
+      {words[0].word_target}
+    </div>
+  </AnimatedDiv>
+) : (
+  <div className={styles['card__text']}>
+    {home.isLibrary.length === 0
+      ? 'Выберите словарь'
+      : 'Все карточки просмотрены'}
+  </div>
+)}
+
+    </div>
+    {words.length > 0 ?
       <div className={styles.buttons__container}>
       <ButtonsLeftRignt func={handleSwipe}/>
+      </div> : <div className={styles.buttons__container}>
       </div>
+  }
   </>
 )
 }
