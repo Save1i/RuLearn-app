@@ -25,12 +25,14 @@ const Task = sequelize.define("task", {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
   type: { type: DataTypes.STRING, allowNull: false },
   duration: { type: DataTypes.STRING, allowNull: false },
+  availability: { type: DataTypes.BOOLEAN, defaultValue: false },
 });
 
 const Task_progress = sequelize.define("task_progress", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   status: { type: DataTypes.STRING, allowNull: false, defaultValue: "dont learned" },
   learned: { type: DataTypes.BOOLEAN, defaultValue: false },
+  availability: { type: DataTypes.BOOLEAN, defaultValue: false },
 });
 
 const Test = sequelize.define("test", {
