@@ -9,6 +9,7 @@ interface isTaskP {
   duration: string;
   sectionId: number;
   learned: boolean;
+  availability: boolean;
 }
 
 interface SectionProps {
@@ -20,7 +21,9 @@ interface SectionProps {
 }
 
 const Section: React.FC<SectionProps> = observer(({ section, tasksP }) => {
-  const sectionTasks = tasksP.filter((taskP) => taskP.sectionId === section.id);
+  const sectionTasks = tasksP
+    .filter((taskP) => taskP.sectionId === section.id)
+    .sort((a, b) => a.id - b.id);
 
   return (
     <div className={styles.section}>
