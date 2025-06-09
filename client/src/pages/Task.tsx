@@ -53,9 +53,9 @@ const Task: React.FC<TaskProps> = ({ taskP }) => {
       {showModal && (
         <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
           <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <h2 style={{marginBottom: "10px"}}>Задание недоступно</h2>
-            <p style={{fontSize: "15px", marginBottom: "10px"}}>Это задание доступно только в платной версии. Пожалуйста, приобретите доступ.</p>
-            <button onClick={() => setShowModal(false)}>Закрыть</button>
+            <h2 style={{marginBottom: "10px", fontSize: "18px", fontWeight: 600}}>Задание недоступно</h2>
+            <p style={{fontSize: "14px", marginBottom: "10px"}}>Часть заданий и функций доступна только в премиум-версии. Получите полный доступ всего за 24,99р. в месяц!</p>
+            <button style={{borderRadius: "5px", padding: "5px 10px 5px 10px", fontWeight: 600, fontSize: "17px"}} onClick={() => setShowModal(false)}>Закрыть</button>
           </div>
         </div>
       )}
