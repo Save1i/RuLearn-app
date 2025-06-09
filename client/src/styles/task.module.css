@@ -6,6 +6,33 @@
   padding: 15px;
 }
 
+.task__locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modalContent {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 400px;
+  text-align: center;
+  margin: 20px;
+}
+
 .task__up {
   display: flex;
   justify-content: space-between;

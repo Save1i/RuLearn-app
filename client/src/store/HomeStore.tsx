@@ -8,6 +8,7 @@ interface TaskProgress {
   sectionId: number;
   learned: boolean;
   taskId: number;
+  availability: boolean
 }
 
 interface Task {
@@ -16,6 +17,7 @@ interface Task {
   type: string;
   duration: string;
   sectionId: number;
+  availability: boolean
 }
 
 interface Test {
