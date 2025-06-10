@@ -33,6 +33,7 @@ const ProfileUser = () => {
           }}
         >
           <LogInLogOut />
+            <p className={styles.info}>Это бета-версия приложения, разработанная Савелием Косевичем в рамках дипломного проекта. Благодарю за использование!</p>
         </div>
     </div>
     </CSSTransition>
