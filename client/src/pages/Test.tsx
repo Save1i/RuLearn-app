@@ -15,6 +15,8 @@ import { supabase } from "../http/supabaseClient";
 import DndTest from "../components/DndTest";
 import Options from "../components/Options";
 
+import cat from "../img/auth.png"
+
 
 const Test = observer(() => {
   const { home } = useContext(Context);
@@ -100,11 +102,12 @@ useEffect(() => {
             {mediaUrls[el.id]?.image && (
               <img 
                 width={100} 
-                height={125} 
+                height={125}
+                style={{ objectFit: 'cover' }}
                 src={mediaUrls[el.id].image} 
                 alt={el.name}
                 onError={(e) => {
-                  e.currentTarget.src = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/static//default_image.png`;
+                  e.currentTarget.src = `${cat}`;
                 }}
               />
             )}
