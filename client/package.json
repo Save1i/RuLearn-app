@@ -19,7 +19,7 @@
     "@react-spring/web": "^9.7.5",
     "@supabase/supabase-js": "^2.49.4",
     "@use-gesture/react": "^10.3.1",
-    "axios": "^1.8.2",
+    "axios": "^1.15.0",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.7",
     "jwt-decode": "^4.0.0",
